@@ -783,38 +783,87 @@ function callKeyUpValidate() {
 }
 
 
-function like ()
-    {
-        $(document).on('click', '.js-like', function(event){
-            event.preventdefault();
-            var id = $(this).data('id');
-            var url = $(this).data('url');
-            var likeStatus = localStorage.getItem(id);
+function like (){
+    $(document).on('click', '.js-like', function(){
+        var id = $(this).data('id');
+        var url = $(this).data('url');
+        var likeStatus = localStorage.getItem(id);
 
-            if(likeStatus != 'liked'){
-                // $('.total-like-'+id).show();
-                var totalLike = $('.total-like-'+id).data('like');
-                var increaseLike = parseInt(totalLike) + 1;
-                var likeHtml = increaseLike.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
-                $('.total-like-'+id).text('('+ likeHtml +')');
-                // $('.icon-like-'+id).show();
-                $(this).find('.icon-like').html('<i class="fa fa-thumbs-up"></i>');
+        if(likeStatus != 'liked'){
+            // $('.total-like-'+id).show();
+            var totalLike = $('.total-like-'+id).data('like');
+            var increaseLike = parseInt(totalLike) + 1;
+            var likeHtml = increaseLike.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+            $('.total-like-'+id).text('('+ likeHtml +')');
+            // $('.icon-like-'+id).show();
+            $(this).find('.icon-like').html('<i class="fa fa-thumbs-up"></i>');
 
-                $.ajax({
-                    headers: TOKEN,
-                    type: "POST",
-                    url : url,
-                    data : {
-                        id : id
-                    },
-                    success : function(response)
-                    {
-                        localStorage.setItem(id, 'liked');
-                    }
+            $.ajax({
+                headers: TOKEN,
+                type: "POST",
+                url : url,
+                data : {
+                    id : id
+                },
+                success : function(response)
+                {
+                    localStorage.setItem(id, 'liked');
+                }
+            });
+        }
+    });
+}
+
+
+// rating
+function rating(params) {
+    var rating = $(".js-rating"),
+        ratingChild = rating.find("li");
+
+    ratingChild
+        .on("mouseover", function () {
+            const VAL = parseInt($(this).data("num"));
+            $(this)
+                .parent()
+                .find("li")
+                .each(function (index, element) {
+                    index < VAL ? $(this).children().addClass("fill") : $(this).children().removeClass("fill");
                 });
-            }
+        })
+        .on("mouseout", function () {
+            $(this)
+                .parent()
+                .find("li")
+                .each(function () {
+                    $(this).children().removeClass("fill");
+                });
+        });
+
+    ratingChild.on("click", function () {
+        const VAL = parseInt($(this).data("num"));
+        var li = $(this).parent().children("li");
+
+        for (i = 0; i < li.length; i++) {
+            $(li[i]).removeClass("selected");
+        }
+
+        for (i = 0; i < VAL; i++) {
+            $(li[i]).addClass("selected");
+        }
+
+        $(".js-rating").find("li").hasClass("selected") && $(".lc__reviews-rating .alert").hide();
+
+        var ratingVal = parseInt($(".js-rating li .fill").parent().last().data("num"));
+        responUserRatingMess(ratingVal);
+    });
+
+    function responUserRatingMess(ratingVal) {
+        var mess = ["Không thích", "Tạm được", "Bình thường", "Hài lòng", "Tuyệt vời"];
+        mess.filter(function (element, index) {
+            index + 1 === ratingVal && $("#messrating").text(element);
         });
     }
+}
 
 
 $(document).ready(function () {
@@ -835,6 +884,9 @@ $(document).ready(function () {
 
     //like
     like();
+
+    //rating
+    rating();
 
     callKeyUpValidate();
 });

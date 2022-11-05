@@ -210,7 +210,7 @@ class ProductController extends Controller
                 // 'star3' => $star3,
                 // 'star2' => $star2,
                 // 'star1' => $star1,
-                'avgRating' => $avgRating,
+                'avgRating' => ceil($avgRating),
                 'countRating' => $countRating,
                 'camket' => $camket,
                 'slider' => $sliders,
@@ -772,7 +772,7 @@ class ProductController extends Controller
             return response()->json([
                 "code" => 200,
                 "html" => view('frontend.components.load-success-modal')->render(),
-                'avgRating' => $avgRating,
+                'avgRating' => ceil($avgRating),
                 'countRating' => $countRating,
                 "message" => "success"
             ], 200);

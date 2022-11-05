@@ -7285,6 +7285,15 @@ li.item-filter-desc.active {
 	margin-right: 12px;	
 }
 
+.lc__rating-star {
+    color: #718198 !important;
+}
+
+.lc__rating-star .fill,
+.lc__rating-star .selected i {
+    color: #f59e0b !important;
+}
+
 @media(max-width:1300px) {
     .category-slide-1 .slick-prev {
         left: 0;

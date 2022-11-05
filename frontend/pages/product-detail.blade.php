@@ -1283,7 +1283,7 @@
                                     </p>
                                     <div class="u-flex align-items-center justify-center relative">
                                         <ul class="lc__rating-star row no-gutters justify-center align-center m-b-4 js-rating create-rating">
-                                            <li class="m-r-8 selected" data-num="1">
+                                            <li class="m-r-8" data-num="1">
                                                 <i class="fas fa-star"></i>
                                             </li>
                                             <li class="m-r-8" data-num="2">
@@ -1299,7 +1299,7 @@
                                                 <i class="fas fa-star"></i>
                                             </li>
                                         </ul>
-                                        <span class="messrating fs-p-16 txt-gray-700" id="messrating">Không thích</span>
+                                        <span class="messrating fs-p-16 txt-gray-700" id="messrating"></span>
                                     </div>
                                     <div class="alert alert-md alert-danger alert-des alert-sm-md m-t-16 m-t-md-0 error-star" style="display: none;">
                                         <i class="fas fa-minus alert-ic bg-danger"></i>
