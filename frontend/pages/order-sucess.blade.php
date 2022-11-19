@@ -90,26 +90,33 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12">
 
                                     <div class="sucess-order text-center mb-3">
-                                        @if (session("sucess"))
-                                        <i class="fas fa-shopping-bag mr-3"></i> {{ session("sucess") }}
+                                        @if(!empty($data))
+                                        <i class="fas fa-shopping-bag mr-3"></i> Đặt hàng thành công
+                                        @else
+                                        <i class="fas fa-shopping-bag mr-3"></i> Không tìm thấy đơn hàng của bạn. Vui lòng liên hệ để được hỗ trợ
+                                        @endif
+                                        {{-- @if (session("sucess"))
+                                            <i class="fas fa-shopping-bag mr-3"></i> {{ session("sucess") }}
                                         @elseif(session("error"))
-                                        <i class="fas fa-shopping-bag mr-3"></i> {{ session("error") }}
+                                            <i class="fas fa-shopping-bag mr-3"></i> {{ session("error") }}
                                         @else
                                         <i class="fas fa-shopping-bag mr-3"></i> {{ __('home.ban_chua_dat_hang') }}
-                                        @endif
+                                        @endif --}}
                                     </div>
 
                                     <div class="order-content">
-                                        @if (session("sucess"))
+                                        {{-- @if (session("sucess")) --}}
                                         <div class="infor-order mb-3">
                                             {{-- <div class="thank-you text-center mb-3">
                                              {{ __('home.dat_hang_thanh_cong') }}
                                             </div> --}}
+                                        @if(!empty($data))
+                                            
                                             <ul class="list-infor">
                                                 <li><span>{{ __('contact.name') }} </span> {{ $data->name  }}, {{ $data->phone }}, {{ $data->email }}</li>
-                                                <li><span>{{ __('contact.address') }} </span> {{ $data->address_detail }}, {{ $data->commune->name }}, {{ $data->district->name }}, {{ $data->city->name }} ({{ __('contact.xac_nhan') }}).</li>
+                                                <li><span>{{ __('contact.address') }} </span> {{ $data->address_detail }}, {{ $data->district->name }}, {{ $data->city->name }} ({{ __('contact.xac_nhan') }}).</li>
                                                 <li class="total-price"><span>{{ __('contact.total_price') }} </span> {{ number_format($data->total) }} {{ $unit??'đ' }}</li>
-                                                <li><span>{{ __('Ghi chú') }} </span> {{ $data->note  }}</li>
+                                                {{-- <li><span>{{ __('Ghi chú') }} </span> {{ $data->note  }}</li> --}}
                                             </ul>
                                           <div class="list-order-product pt-4 pb-4">
                                             <div class="title-order  mb-3">
@@ -117,7 +124,6 @@
                                             </div>
                                             <div class="row">
                                                 @foreach ($data->products as $productItem)
-
                                                 <div class="col-md-6 col-sm-6 col-xs-6">
                                                     <div class="order-item">
                                                         <div class="media p-0">

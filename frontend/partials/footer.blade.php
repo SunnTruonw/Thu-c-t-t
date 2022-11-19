@@ -98,61 +98,7 @@
     <div class="footer-main">
         <div class="container">
             <div class="row">
-				<div class="col-lg-7 col-md-12 col-sm-12">
-					<div class="row">
-				<div class="col-lg-4 col-md-12 col-sm-12 col-item-footer">
-                    @if(isset($footer['linklienket']) && $footer['linklienket']->count()>0 )
-                    <div class="title-footer">
-                        {{ $footer['linklienket']->name }}
-                    </div>
-                    <div class="list-link-footer">
-                        <ul class="footer-link">
-                            @foreach($footer['linklienket']->childs()->where('active',1)->orderby('order')->latest()->get()
-                            as
-                            $item)
-                            <li><a href="{{ $item->slug }}">{{ $item->name }}</a></li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
-                </div>
-				<div class="col-lg-4 col-md-12 col-sm-12 col-item-footer">
-                    @if(isset($footer['linklienket1']) && $footer['linklienket1']->count()>0 )
-                    <div class="title-footer">
-                        {{ $footer['linklienket1']->name }}
-                    </div>
-                    <div class="list-link-footer">
-                        <ul class="footer-link">
-                            @foreach($footer['linklienket1']->childs()->where('active',1)->orderby('order')->latest()->get()
-                            as
-                            $item)
-                            <li><a href="{{ $item->slug }}">{{ $item->name }}</a></li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
-                </div>
-				<div class="col-lg-4 col-md-12 col-sm-12 col-item-footer">
-                    @if(isset($footer['linklienket2']) && $footer['linklienket2']->count()>0 )
-                    <div class="title-footer">
-                        {{ $footer['linklienket2']->name }}
-                    </div>
-                    <div class="list-link-footer">
-                        <ul class="footer-link">
-                            @foreach($footer['linklienket2']->childs()->where('active',1)->orderby('order')->latest()->get()
-                            as
-                            $item)
-                            <li><a href="{{ $item->slug }}">{{ $item->name }}</a></li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
-                </div>
-                
-               </div>
-                </div> 
-
-                <div class="col-lg-5 col-md-12 col-sm-12">
+				<div class="col-lg-5 col-md-12 col-sm-12">
                     <div class="row">
 						<div class="box_right_footer">
 							<div class="col-lg-12 col-md-12 col-sm-12 col-item-footer">
@@ -197,6 +143,58 @@
 						</div>
                     </div>
                 </div>
+				<div class="col-lg-7 col-md-12 col-sm-12">
+					<div class="row">
+				<div class="col-lg-4 col-md-12 col-sm-12 col-item-footer">
+                    @if(isset($footer['linklienket']) && $footer['linklienket']->count()>0 )
+					<div class="box_link_foot">
+                        <div class="title">
+                            <span>{{ $footer['linklienket']->name }}</span>
+                            <img class="show_mb" src="{{ asset('frontend/images/arrow-right2.png') }}" alt="Arrows">
+                        </div>
+                        <ul>
+                            @foreach($footer['linklienket']->childs()->where('active',1)->orderby('order')->latest()->get() as $item)
+                            <li><a href="{{ $item->slug }}">{{ $item->name }}</a></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+                </div>
+				<div class="col-lg-4 col-md-12 col-sm-12 col-item-footer">
+					@if(isset($footer['linklienket1']) && $footer['linklienket1']->count()>0 )
+					<div class="box_link_foot">
+                        <div class="title">
+                            <span>{{ $footer['linklienket1']->name }}</span>
+                            <img class="show_mb" src="{{ asset('frontend/images/arrow-right2.png') }}" alt="Arrows">
+                        </div>
+                        <ul>
+                            @foreach($footer['linklienket1']->childs()->where('active',1)->orderby('order')->latest()->get() as $item)
+                            <li><a href="{{ $item->slug }}">{{ $item->name }}</a></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+                </div>
+				<div class="col-lg-4 col-md-12 col-sm-12 col-item-footer">
+					@if(isset($footer['linklienket2']) && $footer['linklienket2']->count()>0 )
+					<div class="box_link_foot">
+                        <div class="title">
+                            <span>{{ $footer['linklienket2']->name }}</span>
+                            <img class="show_mb" src="{{ asset('frontend/images/arrow-right2.png') }}" alt="Arrows">
+                        </div>
+                        <ul>
+                            @foreach($footer['linklienket2']->childs()->where('active',1)->orderby('order')->latest()->get() as $item)
+                            <li><a href="{{ $item->slug }}">{{ $item->name }}</a></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+                </div>
+                
+               </div>
+                </div> 
+
+                
             </div>
         </div>
     </div>
@@ -354,6 +352,7 @@
         </div>
     </div>
 </div>
+{{--
 <div class="bottom-contact">
     <ul>
         <li>
@@ -386,7 +385,7 @@
         </li>
     </ul>
 </div>
-
+--}}
 
 
 

@@ -98,10 +98,11 @@ class AdminTransactionController extends Controller
                 $transactions = $transactions->orderBy(...$or);
             }
         } else {
-            $transactions = $transactions->orderBy("created_at", "DESC");
+            $transactions = $transactions->orderBy("id", "DESC");
         }
 
         $transactions =  $transactions->paginate(15);
+
         return view('admin.pages.transaction.index', [
             'data' => $transactions,
             'dataTransactionGroupByStatus' => $dataTransactionGroupByStatus,

@@ -236,6 +236,45 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <script>
         $(function(){
+            function slider(){
+                $('.autoplay6-tintuc').not('.slick-initialized').slick({
+                    dots: false,
+                    slidesToShow: 5,
+                    slidesToScroll: 1,
+                    autoplay: true,
+                    autoplaySpeed: 1500,
+                    pauseOnHover: true,
+                    responsive: [{
+                            breakpoint: 1199,
+                            settings: {
+                                slidesToShow: 4,
+
+                            }
+                        },
+                        {
+                            breakpoint: 991,
+                            settings: {
+                                slidesToShow: 4,
+
+                            }
+                        },
+                        {
+                            breakpoint: 767,
+                            settings: {
+                                slidesToShow: 2,
+
+                            }
+                        },
+                        {
+                            breakpoint: 600,
+                            settings: {
+                                slidesToShow: 2,
+                            }
+                        }
+                    ]
+                });
+
+            }
             // Sản phẩm vừa xem
             $.ajaxSetup({
                 headers: {
@@ -258,6 +297,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             method : 'POST',
                             success : function(data){
                                 $('#product-view').html('').append(data.data);
+                                slider();
                             }
                         })
                     }

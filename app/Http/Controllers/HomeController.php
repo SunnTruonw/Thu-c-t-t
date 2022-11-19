@@ -88,7 +88,7 @@ class HomeController extends Controller
     // }
     public function index(Request $request)
     {
-        $listId = $this->categoryPost->getALlCategoryChildrenAndSelf(62);
+        $listId = $this->categoryPost->getALlCategoryChildrenAndSelf(70);
         $post_home = $this->post->whereIn('category_id', $listId)->where('active', 1)->where('hot', 1)->get();
         $postTitle = $this->categoryPost->where('active', 1)->find(62);
         $listId = $this->categoryPost->getALlCategoryChildrenAndSelf(70);
@@ -154,6 +154,7 @@ class HomeController extends Controller
         ])->latest()->limit($this->productHotLimit)->get();
         $slidesub = $this->setting->find(342);
         $hotro = $this->setting->find(337);
+        $slide_in = $this->setting->find(290);
         $camnhan = $this->setting->find(302);
         $camnhan2 = $this->setting->find(304);
         $thongtin_danhmucsp = $this->setting->find(239);
@@ -179,6 +180,7 @@ class HomeController extends Controller
             ['active', 1],
             ['parent_id', 290],
         ])->orderBy('order')->orderByDesc('created_at')->limit($this->sliderLimit)->get();
+
         $bosuutapM = $this->setting->find(228);
         $khuyenMaiM = $this->setting->find(229);
         $dichvuM = $this->setting->find(222);
@@ -239,6 +241,7 @@ class HomeController extends Controller
             'hotro' => $hotro,
             'slidesub' => $slidesub,
             'camnhan' => $camnhan,
+            'slide_in' => $slide_in,
             'camnhan2' => $camnhan2,
             'collection' => $collection,
             'dichvu' => $dichvu,
@@ -268,7 +271,7 @@ class HomeController extends Controller
     {
         if ($request->ajax()) {
             $listId = $request->id;
-            $products = $this->product->whereIn('id', $listId)->where('active', 1)->limit(5)->get();
+            $products = $this->product->whereIn('id', $listId)->where('active', 1)->limit(8)->get();
             //  dd($products);
 
             $html = view('frontend.components.load-view-product', compact('products'))->render();

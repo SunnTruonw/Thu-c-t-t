@@ -80,6 +80,26 @@ function clearInputReview() {
     $("#replyId").val("");
 }
 
+
+function clearInputCart() {
+    $("input[name='gender']:checked").prop("checked", false);
+    $("input[name='nameCart']").val("");
+    $("input[name='phoneCart']").val("");
+    $("input[name='emailCart']").val("");
+
+    $('input[name="tax"]:checked').prop("checked", false);
+    $("input[name='eInvoiceType']:checked").prop("checked", false);
+    $("input[name='companyName']").val("");
+    $("input[name='companyTax']").val("");
+    $("input[name='companyAddress']").val("");
+
+    $("input[name='hiddenLocation']:checked").prop("checked", false);
+    $('#city').val("");
+     $('#district').val("");
+    $("#addressCart").val("");
+    $("input[name='payment']:checked").prop("checked", false);
+}
+
 /**
  * Bình luận
  * @param {*} danhXung 
@@ -661,7 +681,26 @@ function keyUpValidate(elementKeyup, elementHide, elementName = false, extend = 
                     .removeClass("is-invalid");
             }
         }
+
+        
     });
+
+    if (extend == "city" || extend == "district") {
+        $(document).on("change", "#" + extend, function () {
+            if ($(this).val() != "" && $(this).val().replace(/\s/g, "").length > 0) {
+                $("#" + elementHide).hide();
+                $("#" + elementHide)
+                    .parents('form-group')
+                    .removeClass("is-invalid");
+            } else {
+                $("#" + elementHide).show();
+                $("#" + elementHide)
+                    .parents('form-group')
+                    .addClass("is-invalid");
+            }
+        });
+    }
+
     if (invaliEmail != false) {
         $(document).on("keyup", "#" + elementKeyup, function () {
             var email = $(this).val();
@@ -722,6 +761,22 @@ function keyUpValidate(elementKeyup, elementHide, elementName = false, extend = 
         }
     });
 
+    $(document).on("click", "." + elementKeyup, function () {
+        var danhXung = $("input[name=" + elementName + "]:checked").val();
+        if (typeof danhXung != "undefined") {
+            $("#" + elementHide).hide();
+            if (elementKeyup == "gender") {
+                $(".check-form-create-comment").removeClass("is-invalid");
+            }
+            
+        } else {
+            $("#" + elementHide).show();
+            if (elementKeyup == "gender") {
+                $(".check-form-create-comment").addClass("is-invalid");
+            }
+        }
+    });
+
     $("create-rating").click(function () {
         var rating = $(".lc__rating-star").find("li.m-r-8.selected").length;
         if (rating > 0) {
@@ -768,6 +823,25 @@ function callKeyUpValidate() {
     keyUpValidate("emailReview", "errorEmailReview", "none", "none", "none", "none", "none", "is-email");
     keyUpValidate("contentReview", "errorContentReview", "none", "content");
     keyUpValidate("none", "none", "none", "none", "none", "star");
+
+    //cart
+    keyUpValidate("danh-xung-gender", "errorGender", "gender");
+    keyUpValidate("nameCart", "errorNameCart");
+    keyUpValidate("phoneCart", "errorPhoneCart", "none", "phone", "error-phone-cart--text");
+    keyUpValidate("emailCart", "errorEmailCart", "none", "none", "none", "none", "none", "is-email");
+
+    keyUpValidate("danh-xung-eInvoiceType", "erroreInvoiceType", "eInvoiceType");
+    keyUpValidate("companyName", "errorCompanyName");
+    keyUpValidate("companyTax", "errorCompanyTax"); 
+    keyUpValidate("companyAddress", "errorCompanyAddress"); 
+
+    keyUpValidate("city_id", "errorCity","none", "city");
+    keyUpValidate("district_id", "errorDistrict","none", "district");
+    keyUpValidate("addressCart", "errorAddressCart"); 
+
+    keyUpValidate("danh-xung-hiddenLocation", "errorhiddenLocation", "hiddenLocation");
+    keyUpValidate("danh-xung-payment", "errorpayment", "payment");
+
     if(0){
         keyUpValidate("none", "none", "none", "none", "none", "star", "contentCreateCommentMb");
 
@@ -865,6 +939,198 @@ function rating(params) {
     }
 }
 
+function validateTax(tax,eInvoiceType,companyName ,companyTax,companyAddress)
+{
+    if (eInvoiceType == "" || typeof eInvoiceType == "undefined") {
+        $("#erroreInvoiceType").show();
+        // $(".check-form-create-comment").addClass("is-invalid");
+        var erroreInvoiceType = false;
+    } else {
+        $("#erroreInvoiceType").hide();
+        // $(".check-form-create-comment").removeClass("is-invalid");
+    }
+
+    if (companyName == "" || companyName.replace(/\s/g, "").length < 1 || removeChar(companyName) == "") {
+        $("#errorCompanyName").show();
+        $("#companyName").parent().addClass("is-invalid");
+        var errorCompanyName = false;
+    } else {
+        $("#errorCompanyName").hide();
+    }
+
+    if (companyTax == "" || companyTax.replace(/\s/g, "").length < 1 || removeChar(companyTax) == "") {
+        $("#errorCompanyTax").show();
+        $("#companyTax").parent().addClass("is-invalid");
+        var errorCompanyTax = false;
+    } else {
+        $("#errorCompanyTax").hide();
+    }
+
+    if (companyAddress == "" || companyAddress.replace(/\s/g, "").length < 1 || removeChar(companyAddress) == "") {
+        $("#errorCompanyAddress").show();
+        $("#companyAddress").parent().addClass("is-invalid");
+        var errorCompanyAddress = false;
+    } else {
+        $("#errorCompanyAddress").hide();
+    }
+
+    if (erroreInvoiceType == false || errorCompanyName == false || errorCompanyTax == false || errorCompanyAddress == false) {
+        return false;
+    }
+}
+
+function validateformCart(gender, nameCart, phoneCart, emailCart,tax,eInvoiceType,companyName ,companyTax,companyAddress, hiddenLocation,city_id , district_id, addressCart, payment)
+{
+    if (gender == "" || typeof gender == "undefined") {
+        $("#errorGender").show();
+        $(".check-form-create-comment").addClass("is-invalid");
+        var errorGenger = false;
+    } else {
+        $("#errorGender").hide();
+        $(".check-form-create-comment").removeClass("is-invalid");
+    }
+
+    if (nameCart == "" || nameCart.replace(/\s/g, "").length < 1 || removeChar(nameCart) == "") {
+        $("#errorNameCart").show();
+        $("#nameCart").parent().addClass("is-invalid");
+        var errorNameCart = false;
+    } else {
+        $("#errorNameCart").hide();
+    }
+
+    if (phoneCart == "" || phoneCart.replace(/\s/g, "").length < 1) {
+        $("#errorPhoneCart").show();
+        $("#phoneCart").parent().addClass("is-invalid");
+        var errorPhoneCart = false;
+    } else {
+        if (phoneCart.length < 10 || phoneCart.length > 10 || !$.isNumeric(phoneCart) || phonenumber(phoneCart) == false) {
+            $("#errorPhoneCart").show();
+            $("#phoneCart").parent().addClass("is-invalid");
+            $(".error-phone-cart--text").text("Số điện thoại không hợp lệ!");
+            var errorPhoneCart = false;
+        } else {
+            $("#errorPhoneCart").hide();
+        }
+    }
+    if (emailCart != "" || emailCart.length > 0 || emailCart.replace(/\s/g, "").length > 0 || removeChar(emailCart) != "") {
+        if (isEmail(emailCart) == false) {
+            $("#errorEmailCart").show();
+            return false;
+        } else {
+            $("#errorEmailCart").hide();
+        }
+    } else {
+        $("#errorEmailCart").hide();
+    }
+
+    if(typeof tax != "undefined"){
+        var validate = validateTax(tax,eInvoiceType,companyName ,companyTax,companyAddress);
+        if (validate == false) {
+            return false;
+        }
+    }
+
+
+    if (city_id == "" || city_id.replace(/\s/g, "").length < 1) {
+        $("#errorCity").show();
+        $("#city").parents('form-group').addClass("is-invalid");
+        var errorCity = false;
+    } else {
+        $("#errorCity").hide();
+    }
+
+    if (district_id == "" || district_id.replace(/\s/g, "").length < 1) {
+        $("#errorDistrict").show();
+        $("#district").parents('form-group').addClass("is-invalid");
+        var errorDistrict = false;
+    } else {
+        $("#errorDistrict").hide();
+    }
+
+    if (addressCart == "" || addressCart.replace(/\s/g, "").length < 1 || removeChar(addressCart) == "") {
+        $("#errorAddressCart").show();
+        $("#addressCart").parent().addClass("is-invalid");
+        var errorAddressCart = false;
+    } else {
+        $("#errorAddressCart").hide();
+    }
+
+    if (hiddenLocation == "" || typeof hiddenLocation == "undefined") {
+        $("#errorhiddenLocation").show();
+        var errorhiddenLocation = false;
+    } else {
+        $("#errorhiddenLocation").hide();
+    }
+
+    if (payment == "" || typeof payment == "undefined") {
+
+        $("#errorpayment").show();
+        var errorpayment = false;
+    } else {
+        $("#errorpayment").hide();
+    }
+    
+    if (errorGenger == false || errorNameCart == false || errorPhoneCart == false || errorhiddenLocation == false || errorpayment == false || errorAddressCart == false || errorCity == false || errorDistrict == false) {
+        return false;
+    }
+}
+
+function sendCart() {
+    $(document).on("click", ".js-btn-shopping-cart", function () {
+        var url = $(this).data('url');
+        var gender = $("input[name='gender']:checked").val();
+        var nameCart = $("input[name='nameCart']").val();
+        var phoneCart = $("input[name='phoneCart']").val();
+        var emailCart = $("input[name='emailCart']").val();
+
+        var tax = $('input[name="tax"]:checked').val();;
+        var eInvoiceType = $("input[name='eInvoiceType']:checked").val();
+        var companyName = $("input[name='companyName']").val();
+        var companyTax = $("input[name='companyTax']").val();
+        var companyAddress = $("input[name='companyAddress']").val();
+
+        var hiddenLocation = $("input[name='hiddenLocation']:checked").val();
+        var city_id = $('#city').val();
+        var district_id =  $('#district').val();
+        var addressCart = $("#addressCart").val();
+        var payment = $("input[name='payment']:checked").val();
+
+        // console.log('gender', gender);
+        // console.log('eInvoiceType', eInvoiceType);
+        // console.log('tax', tax);
+        // console.log('hiddenLocation', hiddenLocation);
+        // console.log('payment', payment);
+
+        // console.log(city_id);
+        // console.log(district_id);
+        // console.log(addressCart);
+
+        var validate = validateformCart(gender,nameCart, phoneCart, emailCart,tax,eInvoiceType,companyName ,companyTax,companyAddress, hiddenLocation,city_id , district_id,addressCart, payment);
+
+        // console.log('valide', validate);
+        if (validate == false) {
+            return false;
+        }
+
+        $.ajax({
+            url: url,
+            headers: TOKEN,
+            type: "POST",
+            data: { gender: gender, nameCart : nameCart ,phoneCart: phoneCart, emailCart : emailCart,  tax : tax,eInvoiceType : eInvoiceType, companyName: companyName, companyTax: companyTax, companyAddress: companyAddress, hiddenLocation: hiddenLocation, city_id: city_id,district_id: district_id , payment: payment,addressCart: addressCart  },
+            success: function (response) {
+                window.location.href = "/cart/order/sucess/" + response.id;
+                clearInputCart();
+
+            },
+            error: function (response) {
+                window.location.href = "/cart/order/error";
+            },
+        });
+    });
+
+    
+}
+
 
 $(document).ready(function () {
     openModalReplyComment();
@@ -889,4 +1155,6 @@ $(document).ready(function () {
     rating();
 
     callKeyUpValidate();
+
+    sendCart();
 });

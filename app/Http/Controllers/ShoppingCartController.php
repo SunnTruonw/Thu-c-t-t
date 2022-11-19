@@ -47,8 +47,8 @@ class ShoppingCartController extends Controller
     public function list()
     {
         $address = new AddressHelper();
-        $data = $this->city->orderby('name')->get();
-        $cities = $address->cities($data);
+        $dataCity = $this->city->orderby('name')->get();
+        $cities = $address->cities($dataCity);
         //  dd($this->city->get());
         $this->cart = new CartHelper();
         $data = $this->cart->cartItems;
@@ -92,17 +92,43 @@ class ShoppingCartController extends Controller
                 ->where('products.id', $id)
                 ->first();
         } else {
-
             $product = $this->product->find($id);
         }
 
+        // dd($product, $quantity);
+
         $this->cart->add($product, $quantity);
+
+        //load cart
+        $data = $this->cart->cartItems;
+        $totalPrice =  $this->cart->getTotalPrice();
+        $totalOldPrice =  $this->cart->getTotalOldPrice();
+        $totalQuantity =  $this->cart->getTotalQuantity();
+
+        $address = new AddressHelper();
+        $dataCity = $this->city->orderby('name')->get();
+        $cities = $address->cities($dataCity);
+
+        $html = view('frontend.components.load-cart-product', [
+            'data' => $data,
+            'cities' => $cities,
+            'totalPrice' => $totalPrice,
+            'totalOldPrice' => $totalOldPrice,
+            'totalQuantity' => $totalQuantity,
+        ])->render();
 
         return response()->json([
             'code' => 200,
+            'data' => $html,
             'messange' => 'success'
-        ], 200);
+        ]);
+
+        // return response()->json([
+        //     'code' => 200,
+        //     'messange' => 'success'
+        // ], 200);
     }
+
     public function buy($id, Request $request)
     {
         $this->cart = new CartHelper();
@@ -140,20 +166,41 @@ class ShoppingCartController extends Controller
             $this->cart->remove($id);
         }
 
+        $address = new AddressHelper();
+        $dataCity = $this->city->orderby('name')->get();
+        $cities = $address->cities($dataCity);
+
         $totalPrice =  $this->cart->getTotalPrice();
         $totalQuantity =  $this->cart->getTotalQuantity();
         $totalOldPrice =  $this->cart->getTotalOldPrice();
-        return response()->json([
-            'code' => 200,
-            'htmlcart' => view('frontend.components.cart-component', [
-                'data' => $this->cart->cartItems,
+
+        if (!empty($request->type) && $request->type === 'popup') {
+            return response()->json([
+                'code' => 200,
+                'data' => view('frontend.components.load-cart-product', [
+                    'data' => $this->cart->cartItems,
+                    'totalPrice' => $totalPrice,
+                    'totalQuantity' => $totalQuantity,
+                    'totalOldPrice' => $totalOldPrice,
+                ])->render(),
                 'totalPrice' => $totalPrice,
                 'totalQuantity' => $totalQuantity,
-                'totalOldPrice' => $totalOldPrice,
-            ])->render(),
-            'totalPrice' => $totalPrice,
-            'messange' => 'success'
-        ], 200);
+                'messange' => 'success'
+            ], 200);
+        } else {
+            return response()->json([
+                'code' => 200,
+                'htmlcart' => view('frontend.components.cart-component', [
+                    'data' => $this->cart->cartItems,
+                    'totalPrice' => $totalPrice,
+                    'cities' => $cities,
+                    'totalQuantity' => $totalQuantity,
+                    'totalOldPrice' => $totalOldPrice,
+                ])->render(),
+                'totalPrice' => $totalPrice,
+                'messange' => 'success'
+            ], 200);
+        }
     }
     public function update($id, Request $request)
     {
@@ -165,48 +212,84 @@ class ShoppingCartController extends Controller
             $this->cart->update($id, $quantity);
         }
 
+        $address = new AddressHelper();
+        $dataCity = $this->city->orderby('name')->get();
+        $cities = $address->cities($dataCity);
+
         $totalPrice =  $this->cart->getTotalPrice();
         $totalQuantity =  $this->cart->getTotalQuantity();
         $totalOldPrice =  $this->cart->getTotalOldPrice();
-        return response()->json([
-            'code' => 200,
-            'htmlcart' => view('frontend.components.cart-component', [
-                'data' => $this->cart->cartItems,
+
+        if (!empty($request->type) && $request->type === 'popup') {
+            return response()->json([
+                'code' => 200,
+                'data' => view('frontend.components.load-cart-product', [
+                    'data' => $this->cart->cartItems,
+                    'totalPrice' => $totalPrice,
+                    'totalQuantity' => $totalQuantity,
+                    'totalOldPrice' => $totalOldPrice,
+                ])->render(),
                 'totalPrice' => $totalPrice,
                 'totalQuantity' => $totalQuantity,
-                'totalOldPrice' => $totalOldPrice,
-            ])->render(),
-            'totalPrice' => $totalPrice,
-            'totalQuantity' => $totalQuantity,
-            'messange' => 'success'
-        ], 200);
+                'messange' => 'success'
+            ], 200);
+        } else {
+            return response()->json([
+                'code' => 200,
+                'htmlcart' => view('frontend.components.cart-component', [
+                    'data' => $this->cart->cartItems,
+                    'cities' => $cities,
+                    'totalPrice' => $totalPrice,
+                    'totalQuantity' => $totalQuantity,
+                    'totalOldPrice' => $totalOldPrice,
+                ])->render(),
+                'totalPrice' => $totalPrice,
+                'totalQuantity' => $totalQuantity,
+                'messange' => 'success'
+            ], 200);
+        }
     }
-    public function clear()
+    public function clear(Request $request)
     {
         $this->cart = new CartHelper();
         $this->cart->clear();
         $totalPrice =  $this->cart->getTotalPrice();
         $totalQuantity =  $this->cart->getTotalQuantity();
         $totalOldPrice =  $this->cart->getTotalOldPrice();
-        return response()->json([
-            'code' => 200,
-            'htmlcart' => view('frontend.components.cart-component', [
-                'data' => $this->cart->cartItems,
+
+        if (!empty($request->type) && $request->type === 'popup') {
+            return response()->json([
+                'code' => 200,
+                'data' => view('frontend.components.load-cart-product', [
+                    'data' => $this->cart->cartItems,
+                    'totalPrice' => $totalPrice,
+                    'totalQuantity' => $totalQuantity,
+                    'totalOldPrice' => $totalOldPrice,
+                ])->render(),
                 'totalPrice' => $totalPrice,
                 'totalQuantity' => $totalQuantity,
-                'totalOldPrice' => $totalOldPrice,
-            ])->render(),
-            'totalPrice' => $totalPrice,
-            'totalQuantity' => $totalQuantity,
-            'messange' => 'success'
-        ], 200);
+                'messange' => 'success'
+            ], 200);
+        } else {
+            return response()->json([
+                'code' => 200,
+                'htmlcart' => view('frontend.components.cart-component', [
+                    'data' => $this->cart->cartItems,
+                    'totalPrice' => $totalPrice,
+                    'totalQuantity' => $totalQuantity,
+                    'totalOldPrice' => $totalOldPrice,
+                ])->render(),
+                'totalPrice' => $totalPrice,
+                'totalQuantity' => $totalQuantity,
+                'messange' => 'success'
+            ], 200);
+        }
     }
 
     public function postOrder(Request $request)
     {
         $this->cart = new CartHelper();
         $dataCart = $this->cart->cartItems;
-        //  dd($dataCart);
         if (!count($dataCart)) {
             return redirect()->route('cart.order.error')->with("error", __('contact.dat_hang_khong_thanh_cong'));
         }
@@ -220,26 +303,37 @@ class ShoppingCartController extends Controller
             // ];
             $dataTransactionCreate = [
                 'total' => $totalPrice,
-                'name' => $request->input('name'),
-                'phone' => $request->input('phone'),
-                'note' => $request->input('note'),
-                'email' => $request->input('email'),
+                'name' => $request->input('nameCart'),
+                'gender' => $request->input('gender'), // gioi tinh
+                'phone' => $request->input('phoneCart'),
+                'email' => $request->input('emailCart'),
+                'note' => $request->input('note') ?? '',
                 'status' => 1,
                 'city_id' => $request->input('city_id') ?? null,
                 'district_id' => $request->input('district_id') ?? null,
                 'commune_id' => $request->input('commune_id') ?? null,
-                'address_detail' => $request->input('address_detail'),
+                'address_detail' => $request->addressCart ?? null,
                 'httt' => $request->input('httt'),
+
+                'eInvoiceType' => $request->input('eInvoiceType') ?? 0, // = 1 cong ty , = 2 ca nhan
+                'companyName' => $request->input('companyName') ?? '', // ten cong ty
+                'companyTax' => $request->input('companyTax') ?? '', // ma so thue
+                'companyAddress' => $request->input('companyAddress') ?? '', // dia chi cong ty
+
+
+                'hiddenLocation' => $request->input('hiddenLocation') ?? 0, // hinh thuc nhan hang
+                'payment' => $request->input('payment') ?? 0, // 
+
+
+
                 'cn' => $request->input('cn'),
                 'admin_id' => 0,
                 'user_id' => Auth::check() ? Auth::user()->id : 0,
                 'code' => makeCodeTransaction($this->transaction),
             ];
-            //    dd($dataTransactionCreate);
+
             //  dd($this->transaction->create($dataTransactionCreate));
             $transaction = $this->transaction->create($dataTransactionCreate);
-
-            //  dd( $transaction);
             $dataOrderCreate = [];
             foreach ($dataCart as $cart) {
                 $dataOrderCreate[] = [
@@ -265,14 +359,25 @@ class ShoppingCartController extends Controller
 
             $this->cart->clear();
             DB::commit();
-            Mail::to('minskitchenmart@gmail.com')->send(new TransactionEmail($transaction));
+            // Mail::to('minskitchenmart@gmail.com')->send(new TransactionEmail($transaction));
 
-            return redirect()->route('cart.order.sucess', ['id' => $transaction->id])->with("sucess", __('home.dat_hang_thanh_cong'));
+            return response()->json([
+                'code' => 200,
+                'id' => $transaction->id,
+                'messange' => __('home.dat_hang_thanh_cong')
+            ], 200);
+            // return redirect()->route('cart.order.sucess', [])->with("sucess", __('home.dat_hang_thanh_cong'));
         } catch (\Exception $exception) {
             // throw $th;
             DB::rollBack();
+            // dd($exception);
             Log::error('message' . $exception->getMessage() . 'line :' . $exception->getLine());
-            return redirect()->route('cart.order.error')->with("error", __('home.dat_hang_khong_thanh_cong'));
+            return response()->json([
+                'code' => 500,
+                'id' => $transaction->id,
+                'messange' =>  __('home.dat_hang_khong_thanh_cong')
+            ], 500);
+            // return redirect()->route('cart.order.error')->with("error", __('home.dat_hang_khong_thanh_cong'));
         }
     }
     public function getOrderSuccess(Request $request)

@@ -262,7 +262,26 @@
                             <label class="d-block d-lg-none cart-badge-number"
                                 id="desktop-quick-cart-mobi">{{ $header['totalQuantity'] }}</label>
                         </a>
+                        <div class="lc-tooltip-box notitfy-box" id="cartPopupDes">
+                            <input type="hidden" name="countItemCartHeader" value="2" />
+                            <div class="notitfy-box_top box-b-1" id="textSuccessHeaderDes" style="display: none;">
+                                <div class="text-success">
+                                    <i class="fas fa-check"></i>
+                                    <span class="text-modal-comment-sub">Thêm thành công sản phẩm vào giỏ hàng</span>
+                                </div>
+                            </div>
+                            <div class="notitfy-box_bottom scrollbar" id="cart_component">
+                               
+                            </div>
+                            <div class="notitfy-checkout p-t-12">
+                                <a href="{{ route('cart.list') }}" class="btn btn-md btn-primary txt-red" id="btnDoneOrder">
+                                    <span class="f-w-500">XEM GIỎ HÀNG</span>
+                                </a>
+                            </div>
+                        </div>
+                        
                     </div>
+                    
                     <div class="contact-top">
                         <div class="phone">
                             <a href="tel:{{ $header['tai_sao1']->slug }}">{{ $header['tai_sao1']->slug }}</a>
@@ -366,7 +385,7 @@
                                                                             @foreach($dataProductHeader as $product)
                                                                                 @php
                                                                                     $tran=$product->translationsLanguage()->first();
-                                                                                    $link=$product->slug_full;
+                                                                                    $link= route('product.detail',['category'=>$product->category->slug, 'slug'=>$product->slug]);
                                                                                 @endphp
                                                                                 <div class="col p-x-8">
                                                                                     <div class="sub-nav-product-item">
@@ -491,7 +510,9 @@
                                                                             @foreach($dataProductHeader as $product)
                                                                                 @php
                                                                                     $tran=$product->translationsLanguage()->first();
-                                                                                    $link=$product->slug_full;
+                                                                                    // $link=$product->slug_full;
+                                                                                    $link= route('product.detail',['category'=>$product->category->slug, 'slug'=>$product->slug]);
+
                                                                                 @endphp
                                                                                 <div class="col p-x-8">
                                                                                     <div class="sub-nav-product-item">

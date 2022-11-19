@@ -8,14 +8,14 @@
             </div>
             <div class="col-sm-12 col-12">
                 @if( isset($products) && $products->count()>0 )
-                <div class="list-product autoplay6-tintuc category-slide-1 list_feedback1">
-                    {{-- <div class="row"> --}}
+                <div class="list-product list_feedback1">
+                    <div class="row">
                         @foreach ($products as $product)
                         @php
                             $tran=$product->translationsLanguage()->first();
                             $link= route('product.detail',['category'=>$product->category->slug, 'slug'=>$product->slug]);
                         @endphp
-                        <div class="col-product-item">
+                        <div class="col-product-item box_sp_home col-lg-3 col-md-4 col-sm-6 col-6">
                             <div class="product-item">
                                 <div class="box">
                                     <div class="image">
@@ -139,7 +139,7 @@
                             </div>
                         </div>
                     @endforeach
-                {{-- </div> --}}
+                </div>
             </div>
             @endif
         </div>

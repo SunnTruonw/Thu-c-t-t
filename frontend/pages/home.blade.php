@@ -30,9 +30,20 @@
                         </div>
                         @endforeach
                     </div>
-                    
-                    
                 @endisset
+            </div>
+        </div>
+		<div class="wrap-slide-home1">
+            <div class="slide">
+                @if(isset($slide_in)&&$slide_in)
+                    <div class="box-slide faded cate-arrows-1">
+						@foreach($slide_in->childs()->where('active', 1)->get() as $item)
+                        <div class="item-slide">
+                            <a href="{{ $item->slug }}"><img src="{{ asset($item->image_path) }}" alt="{{ $item->name }}"></a>
+                        </div>
+                        @endforeach
+                    </div>
+                @endif
             </div>
         </div>
         <div class="bg_hoa section-search">
@@ -288,7 +299,7 @@
                         <div class="col-inner">
                             <div class="section-title-container">
                                 <h2 class="section-title section-title-center">
-                                    <i class="fa fa-plus-circle" aria-hidden="true"></i>Sản Phẩm Hậu Covid
+                                    Sản Phẩm Tăng Sức Đề Kháng
                                 </h2>
                             </div>
                         </div>
@@ -375,8 +386,8 @@
                     <div class="col-12 col-sm-12">
                         <div class="col-inner">
                             <div class="section-title-container">
-                                <h2 class="section-title section-title-center">
-                                    <i class="fa fa-fire" aria-hidden="true"></i> Bán Chạy Nhất
+                                <h2 class="section-title1 section-title-center">
+                                    Bán Chạy Nhất
                                 </h2>
                             </div>
                         </div>
@@ -691,7 +702,6 @@
                         @endif
                     </div>
                     <div class="row">
-                        {{--
                         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
 							@foreach($post_home as $post)
                                 @if($loop->first)
@@ -717,9 +727,8 @@
                                 @endif
 							@endforeach
                         </div>
-                        --}}
                         
-						<div class="col-12 col-sm-12 col-md-12 col-lg-12">
+						<div class="col-12 col-sm-12 col-md-6 col-lg-6">
                             <div class="list-news2">
                                 @foreach($post_home as $post)
                                 @if($loop->first)
@@ -728,8 +737,7 @@
                                     $tran=$post->translationsLanguage()->first();
                                     $link=$post->slug_full;
                                 @endphp
-                                <div class="list-news2-item">
-                                    
+                                	<div class="list-news2-item">
                                         <div class="image">
                                             <a href="{{$link}}"><img src="{{asset($post->avatar_path)}}" alt="{{$tran->name}}"></a>
                                         </div>
@@ -739,9 +747,9 @@
                                             <div class="cate_news">
                                                 <a href="{{$post->category->slug_full}}">{{$post->category->name}}</a>
                                             </div>
+											{{--<div class="desc_in_home">{!! $tran->description !!}</div>--}}
                                         </div>
-
-                                </div>
+                                	</div>
                                 @endif
 								@endforeach
                              </div>

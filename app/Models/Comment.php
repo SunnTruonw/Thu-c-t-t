@@ -18,6 +18,14 @@ class Comment extends Model
         return $this->hasMany(Comment::class, 'parent_id', 'id');
     }
 
+    // lấy sản phẩm
+    public function products()
+    {
+        return $this
+            ->belongsToMany(Product::class, ProductComment::class, 'comment_id', 'product_id')
+            ->withTimestamps();
+    }
+
     public static function getALlCommentChildrenAndSelf($id)
     {
         $data = self::select('id', 'parent_id')->get();

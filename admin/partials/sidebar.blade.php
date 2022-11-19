@@ -175,17 +175,17 @@
                  @endcan --}}
                  @can('product-list')
                   <li class="nav-item">
-                    <a href="{{route('admin.productstar.index')}}" class="nav-link">
+                    <a href="{{route('admin.comment.index',['type_comment'=> 1])}}" class="nav-link">
                        <i class="fas fa-angle-double-right"></i>
-                       <p>Quản lý đánh giá sao (cũ)</p>
+                       <p>Danh sách bình luận</p>
                     </a>
                   </li>
                  @endcan
                  @can('product-list')
                   <li class="nav-item">
-                    <a href="{{route('admin.comment.index')}}" class="nav-link">
+                    <a href="{{route('admin.comment.index',['type_comment'=> 2])}}" class="nav-link">
                        <i class="fas fa-angle-double-right"></i>
-                       <p>Quản lý bình luận, đánh giá sao</p>
+                       <p>Danh sách đánh giá sao</p>
                     </a>
                   </li>
                  @endcan

@@ -2,6 +2,7 @@
 
 namespace App\Helper;
 
+use App\Models\Setting;
 use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\Session;
 class CartHelper
@@ -39,6 +40,7 @@ class CartHelper
             $this->cartItems[$product->id . '-' . $option_id]['totalOldPriceOneItem'] = $this->getTotalOldPriceOneItem($this->cartItems[$product->id . '-' . $option_id]);
         } else {
 
+            $link = route('product.detail', ['category' => $product->category->slug, 'slug' => $product->slug]);
             $cartItem = [
                 'id' => $product->id,
                 'option_id' => $product->option_id,
@@ -46,6 +48,7 @@ class CartHelper
                 'sale' => $product->sale,
                 'size' => $product->size,
                 'name' => $product->name,
+                'slug_full' => $link,
                 'avatar_path' => $product->avatar_path,
                 'quantity' => $quantity,
             ];
@@ -96,13 +99,24 @@ class CartHelper
     }
     public function getTotalPrice()
     {
+
+        $count = Setting::find(417)->value;
+
         $tP = 0;
+        $tQ = 0;
         if ($this->cartItems) {
-            foreach ($this->cartItems as $cartItem) {
+            foreach ($this->cartItems as $key => $cartItem) {
+
+                $tQ += $cartItem['quantity'];
                 $tP +=  ($cartItem['price'] * (100 - $cartItem['sale']) / 100 * $cartItem['quantity']);
             }
         }
-        return $tP;
+
+        if ($tQ >= 10) {
+            return $tP = $tP - $tP * $count / 100;
+        } else {
+            return $tP;
+        }
     }
 
     public function getTotalOldPrice()

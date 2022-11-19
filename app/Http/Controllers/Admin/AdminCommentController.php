@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Log;
 use App\Traits\StorageImageTrait;
 use App\Traits\DeleteRecordTrait;
 use App\Models\Comment;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 
 class AdminCommentController extends Controller
@@ -29,40 +31,94 @@ class AdminCommentController extends Controller
     }
     public function index(Request $request)
     {
+        // dd($request->input('type_comment'));
         $parentBr = null;
         if ($request->has('parent_id')) {
-            $data = $this->comment->where('parent_id', $request->input('parent_id'))->orderBy("created_at", "desc")->paginate(15);
+            $data = $this->comment->with('products')->where([
+                'status' => 0,
+                'parent_id' => $request->input('parent_id'),
+                'type_comment' => $request->input('type_comment'),
+            ])->orderBy("id", "desc")->paginate(15);
             if ($request->input('parent_id')) {
                 $parentBr = $this->comment->find($request->input('parent_id'));
             }
         } else {
-            $data = $this->comment->where('parent_id', 0)->orderBy("created_at", "desc")->paginate(15);
+            $data = $this->comment->with('products')->where([
+                'status' => 0,
+                // 'parent_id' => 0,
+                'type_comment' => $request->input('type_comment'),
+            ])->orderBy("id", "desc")->paginate(15);
         }
+
+        $title = $request->input('type_comment') == 1 ? 'bình luận' : 'đánh giá sao';
+
         return view(
             "admin.pages.comment.list",
             [
                 'data' => $data,
                 'parentBr' => $parentBr,
+                'title' => $title,
+                'type_comment' => $request->input('type_comment'),
             ]
         );
     }
 
+    public function create(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $dataContactCreate = [
+                'name' => "Quản trị viên",
+                'phone' => "",
+                'email' => "",
+                'danh_xung' => 1,
+                'user_id' => Auth::check() ? Auth::user()->id : 0,
+                "parent_id" => $request->parent_id ? $request->parent_id : 0,
+                'content' => $request->input('content') ?? null,
+                'like' => 0,
+                'share' => 0,
+                'type_comment' => $request->type_comment ?? 0,
+                'stars' => $request->star ?? 0,
+                'status' => 1, // Đã trả lời
+            ];
+
+
+            $comment = Comment::create($dataContactCreate);
+
+            $product = Product::find($request->product_id);
+            $product->comments()->attach($comment->id);
+
+            // Đã được quản trị trả lời
+            Comment::find($request->parent_id)->update(['status' => 1]);
+
+            DB::commit();
+            return response()->json([
+                "code" => 200,
+                "message" => "success"
+            ], 200);
+        } catch (\Exception $exception) {
+            //throw $th;
+            DB::rollBack();
+            // dd($exception);
+            Log::error('message' . $exception->getMessage() . 'line :' . $exception->getLine());
+            return response()->json([
+                "code" => 500,
+                "message" => "fail"
+            ], 500);
+        }
+    }
+
     public function edit($id)
     {
-        dd('đang xử lý');
-
         $data = $this->comment->find($id);
         $parentId = $data->parent_id;
-        $htmlselect = comment::getHtmlOptionEdit($parentId, $id);
         return view("admin.pages.comment.edit", [
-            'option' => $htmlselect,
             'data' => $data
         ]);
     }
 
     public function update(ValidateEditcomment $request, $id)
     {
-        dd('đang xử lý');
         try {
             DB::beginTransaction();
             $datacommentUpdate = [

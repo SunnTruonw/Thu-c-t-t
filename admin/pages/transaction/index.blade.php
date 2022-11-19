@@ -138,10 +138,25 @@ ul{
                                                   <strong>Email:</strong>   {{ $transaction->email }}
                                                  </li>
                                                  <li>
-                                                <strong>Địa chỉ:</strong>    {{ $transaction->address_detail }}, {{ $transaction->commune->name }}, {{ $transaction->district->name }}, {{ $transaction->city->name }}
+                                                <strong>Địa chỉ:</strong>    {{ $transaction->address_detail }}, {{ $transaction->district->name }}, {{ $transaction->city->name }}
                                                 </li>
+
+                                                @if(!empty($transaction->eInvoiceType) && $transaction->eInvoiceType != null)
+                                                    <li>
+                                                        <strong>Hóa đơn</strong>    {{ $transaction->eInvoiceType == 1 ? 'Công ty' : 'Cá nhân' }}
+                                                    </li>
+                                                    <li>
+                                                        <strong>Tên công ty</strong>    {{ $transaction->companyName ?? '' }}
+                                                    </li>
+                                                    <li>
+                                                        <strong>Mã số thuế</strong>    {{ $transaction->companyTax ?? '' }}
+                                                    </li>
+                                                    <li>
+                                                        <strong>Địa chỉ công ty</strong>    {{ $transaction->companyAddress ?? '' }}
+                                                    </li>
+                                                @endif
                                                  <li>
-                                                    <strong>Hình thức thanh toán:</strong>   {{ optional($transaction->setting)->name }}
+                                                    <strong>Hình thức thanh toán:</strong>   {{ $transaction->payment == 1 ? 'Thanh toán tiền mặt khi nhận hàng' : '' }}
                                                 </li>
                                                 
                                              </ul>

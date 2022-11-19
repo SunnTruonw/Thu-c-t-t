@@ -15,13 +15,8 @@
         padding: 6px 16px;
     }
 
-    .blog-product-detail .row{
-        margin-left: -10px;
-        margin-right: -10px;
-    }
-
     .product-relate{
-        background-color: #edf2f8;
+        background-color: #dfeed4;
         padding: 32px 0;
     }
 
@@ -52,7 +47,7 @@
         height: 24px;
         margin-right: 8px;
         line-height: 24px;
-        background: #1d48ba;
+        background: #22924e;
         border-radius: 100px;
         font-size: 12px;
         color: #fff;
@@ -97,7 +92,7 @@
     .product-relate .product-info__price span{
         font-size: 16px;
         line-height: 24px;
-        color: #ff0000;
+        color: #22924e;
         font-weight: 500;
     }
 
@@ -105,7 +100,7 @@
         font-size: 16px;
         line-height: 24px;
         display: block;
-        color: #718198;
+        color: #22924e;
     }
 
    .product-relate .product-item .box .content h3{
@@ -217,10 +212,12 @@
                                                                     (<span id="copy">{{ $data->masp }}</span>)
                                                                 </div>
                                                                 @if($data->comments()->count()>0)
-                                                                    <ul class="rating-star">
+                                                                    <ul class="rating-star pro-item-start-rating">
                                                                         @for($i = 1; $i <= 5; $i++)
                                                                             @if($i <= $avgRating)
                                                                                 <i class="star-bold far fa-star"></i>
+                                                                            @else
+                                                                                <i class="far fa-star"></i>
                                                                             @endif
                                                                         @endfor
                                                                       
@@ -305,10 +302,12 @@
                                                                         (<span id="copy">{{ $data->masp }}</span>)
                                                                     </div>
                                                                     @if($data->comments()->count()>0)
-                                                                        <ul class="rating-star">
+                                                                        <ul class="rating-star pro-item-start-rating">
                                                                             @for($i = 1; $i <= 5; $i++)
                                                                                 @if($i <= $avgRating)
                                                                                     <i class="star-bold far fa-star"></i>
+                                                                                @else
+                                                                                    <i class="far fa-star"></i>
                                                                                 @endif
                                                                             @endfor
                                                                           
@@ -462,7 +461,7 @@
                                                                             @endif
                                                                         </div>
                                                                     </div>
-                                                                    @if(isset($header['tai_sao1']->slug) && $header['tai_sao1']->slug)
+                                                                    {{--@if(isset($header['tai_sao1']->slug) && $header['tai_sao1']->slug)
                                                                     <div class="pdc-feature_bottom m-t-12">
                                                                         <div class="d-flex justify-center align-items-center">
                                                                             <a href="tel:{{ $header['tai_sao1']->slug }}" class="click-to-call"><i class="ic-call bg-success m-r-8"></i>{{ $header['tai_sao1']->slug }}</a>
@@ -471,7 +470,7 @@
                                                                             </p>
                                                                         </div>
                                                                     </div>
-                                                                    @endif
+                                                                    @endif--}}
                                                                 </div>
                                                             @endif
                                                             {{-- <div class="share">
@@ -872,53 +871,60 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+			
+
+            <div class="block-comment">
+				
                         <div class="col-sm-12 col-12 mt-4">
                             <div class="ls-comments">
                                 <div class="row">
                                     @if(!empty($data->questions) && count($data->questions) > 0)
                                         <div class="col-sm-12 col-12 mt-4">
-                                            <div class="section_question ptb-50">
+                                            <div class="single-start">
                                                 <div class="container">
-                                                    <div class="group-title text-center">
-                                                        <h3>
-                                                            Câu hỏi thường gặp
-                                                        </h3>
+                                                    <div class="single-start-title">
+                                                        Câu hỏi thường gặp
                                                     </div>
-                                                    <div class="accordion">
-                                                        <div class="row">
-                                                            @foreach($data->questions()->where('active', 1)->orderBy('order')->orderBy('id', 'desc')->limit(10)->get() as $item)
-                                                                <div class="col-md-12 col-sm-12 col-12">
-                                                                    <div class="accordion-header" id="headingSix{{$item->id}}">
-                                                                        <button class="accordion-button plain collapsed lb-toggle" type="button" data-toggle="collapse" data-target="#collapseSix{{$item->id}}" aria-expanded="false" aria-controls="collapseSix{{$item->id}}">
-                                                                           <span class="icon_question">?</span> {{$item->name}}
-                                                                           <i class="fa fa-angle-down"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="accordion-item">
-                                                                        <div id="collapseSix{{$item->id}}" class="accordion-collapse collapse" aria-labelledby="headingSix{{$item->id}}" data-bs-parent="#accordionExample{{$item->id}}" style="">
-                                                                            <div class="accordion-body">
-                                                                                {!!$item->value!!}
-                                                                            </div>
+                                                    <div class="single-start-top fleft txt-left p-3">
+                                                        <div class="accordion">
+                                                            <div class="row">
+                                                                @foreach($data->questions()->where('active', 1)->orderBy('order')->orderBy('id', 'desc')->limit(10)->get() as $item)
+                                                                    <div class="col-md-12 col-sm-12 col-12">
+                                                                        <div class="accordion-header" id="headingSix{{$item->id}}">
+                                                                            <button class="accordion-button plain collapsed lb-toggle" type="button" data-toggle="collapse" data-target="#collapseSix{{$item->id}}" aria-expanded="false" aria-controls="collapseSix{{$item->id}}">
+                                                                               <span class="item-vote-user"><i class="fa fa-question-circle"></i>{{$item->name}}</span> 
+                                                                               @if($loop->first) 
+                                                                                    <i class="fa fa-angle-up"></i>
+                                                                               @else
+                                                                                    <i class="fa fa-angle-down"></i>
+                                                                               @endif
+                                                                            </button>
                                                                         </div>
-                                                                        
+                                                                        <div class="accordion-item">
+                                                                            <div id="collapseSix{{$item->id}}" class="accordion-collapse collapse @if($loop->first) show @endif" aria-labelledby="headingSix{{$item->id}}" data-bs-parent="#accordionExample{{$item->id}}" style="">
+                                                                                <div class="accordion-body">
+                                                                                    {!!$item->value!!}
+                                                                                </div>
+                                                                            </div>
+                                                                            
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            @endforeach
+                                                                @endforeach
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    
+                                                    <div class="cboth"></div>
                                                 </div>
+                                
                                             </div>
                                         </div>
                                     @endif
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="block-comment">
                 <div class="single-start">
                     <div class="container">
                         <div class="single-start-title">
@@ -1150,7 +1156,6 @@
                                 <div class="form-err txt-left" id="errorDanhXungComment" style="display: none;">
                                     <div class="alert alert-md alert-danger alert-des alert-sm-md ">
                                          <i class="fas fa-minus alert-ic bg-danger"></i>
-                                         
                                         <span class="">Thông tin bắt buộc</span>
                                     </div>
                                 </div>
