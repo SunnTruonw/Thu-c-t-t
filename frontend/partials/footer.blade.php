@@ -87,7 +87,7 @@
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12">
                     <div class="danhsach_nhathuoc">
-                        <a href="{{route('home.drugStore')}}">Xem danh sách nhà thuốc</a>
+                        <a href="/drugstore/create">Xem danh sách nhà thuốc</a>
                     </div>	
                 </div>
             </div>

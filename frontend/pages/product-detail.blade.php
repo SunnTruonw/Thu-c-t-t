@@ -7,144 +7,8 @@
 
 @section('content')
 <style type="text/css">
-    .content_mucluc .box-link-paragraph ul li a.active, .content_mucluc .box-link-paragraph ul li a:hover {
-        background-color: #fff;
-        box-shadow: 0 0 0 1px #e4eaf1;
-        border-radius: 12px;
-        font-weight: 500;
-        padding: 6px 16px;
-    }
-
-    .product-relate{
-        background-color: #dfeed4;
-        padding: 32px 0;
-    }
-
-    .product-relate .title{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 16px;
-    }
-
-    .block-content-left{
-        width: 100%;
-    }
-
-    .product-relate .title h2{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-weight: 500;
-        font-size: 20px;
-        line-height: 28px;
-        color: #1e293b;
-        margin: 0;
-    }
-
-    .product-relate h2 i{
-        width: 24px;
-        height: 24px;
-        margin-right: 8px;
-        line-height: 24px;
-        background: #22924e;
-        border-radius: 100px;
-        font-size: 12px;
-        color: #fff;
-        text-align: center;
-        font-weight: 700;
-    }
-
-    .product-relate .product-item {
-        transition: all .3s ease-out;
-        box-shadow: none!important;
-        border: 1px solid #d8e0e8;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        padding: 12px;
-    }
-
-    .product-item .box .content h3 {
-        margin-left: 0;
-        font-size: 15px;
-        font-weight: 500;
-        text-align: left;
-        text-transform: none;
-        position: relative;
-        line-height: 20px;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        margin: 5px 0;
-        padding: 0 10px;
-        height: 40px;
-        margin-bottom: 8px;
-    }
-
-    .product-relate .product-info__price{
-        color: #000;
-        margin-bottom: 8px;
-        font-size: 12px;
-    }
-
-    .product-relate .product-info__price span{
-        font-size: 16px;
-        line-height: 24px;
-        color: #22924e;
-        font-weight: 500;
-    }
-
-    .product-relate .product-info__price strike{
-        font-size: 16px;
-        line-height: 24px;
-        display: block;
-        color: #22924e;
-    }
-
-   .product-relate .product-item .box .content h3{
-        padding: 0;
-    }
-
-    .product-relate .product-btn{
-        display: flex;
-        flex-wrap: wrap;
-        align-items: baseline;
-        justify-content: space-between;
-    }
-
-    .product-relate .product-btn button {
-        cursor: pointer;
-        outline: none;
-        font-weight: 400;
-        flex-basis: 0;
-        flex-grow: 1;
-        max-width: 100%;
-        color: #333;
-        background: #fff;
-        border: solid 1px #696c70;
-        padding: 0 20px;
-        height: 32px;
-        font-size: 16px;
-        line-height: 16px;
-        border-radius: 100px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-    }
-
-    .product-relate .product-btn a:hover {
-        color: #fff;
-        background: #d8e0e8;
-        border: solid 1px #d8e0e8;
-    }
-
-    .product-relate .product-btn span{
-        font-weight: 500;
-        color: #52637a!important;
-    }
+    
+   
 
     @media (max-width: 991px){
         .content_mucluc{
@@ -202,9 +66,9 @@
                                             <div class="box-product-main">
                                                 <div class="row" >
                                                     <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                                                        <p class="lc-detail-brand d-lg-none">
+                                                        {{--<p class="lc-detail-brand d-lg-none">
                                                             Thương hiệu: <span>Thuoctot365</span>
-                                                        </p>
+                                                        </p>--}}
                                                         <div class="title_sp_detail d-lg-none">
                                                             <div class="name">{{ $data->name }}</div>
                                                             <div class="pcd-rating">
@@ -292,9 +156,9 @@
                                                     </div>
                                                     <div class="col-lg-6 col-md-12 col-sm-12 col-12 product-detail-infor">
                                                         <div class="box-infor">
-                                                            <p class="lc-detail-brand d-lg-block d-none">
+                                                            {{--<p class="lc-detail-brand d-lg-block d-none">
                                                                 Thương hiệu: <span>Thuoctot365</span>
-                                                            </p>
+                                                            </p>--}}
                                                             <div class="title_sp_detail d-lg-block d-none">
                                                                 <h1 class="name">{{ $data->name }}</h1>
                                                                 <div class="pcd-rating">
@@ -442,7 +306,7 @@
                                                                 <div class="pdc-feature">
                                                                     <div class="pdc-feature_top">
                                                                         <div class="pdc-feature_top--head">
-                                                                            Thuoctot365 CAM KẾT
+                                                                            {{$camket->name}}
                                                                         </div>
                                                                         <div class="pdc-feature_top--content">
                                                                             @if($camket->childs()->count() > 0)
@@ -692,9 +556,9 @@
                                             --}}
 
                                             <div class="modal fade modal-First" id="modal-add-cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-dialog modal-dialog-centered modal-add-cart" role="document">
                                                     <div class="modal-content"  image="">
-                                                        <div class="modal-body">
+                                                        <div class="modal-body ">
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                             </button>
                                                             <div class="image-modal">
@@ -840,7 +704,7 @@
                                             @if ($data->paragraphs()->where([['type', $typeKey], ['active', 1]])->count() > 0)
                                                 <div class="title_mucluc">
                                                     <i class="fas fa-list"></i>
-                                                    <span>Nội dung chính</span>
+                                                    <span>THÔNG TIN SẢN PHẨM</span>
                                                 </div>
                                                 <div class="box-link-paragraph">
                                                     <ul>
@@ -962,10 +826,12 @@
                                     <div class="container-btn-show-all" id="lcViewMoreCm">
                                         <input type="hidden" value="1" id="pageComment">
                                         <input type="hidden" value="" id="countLoadMoreCm">
+                                        @if(!empty($data->comment) && $data->comment()->where('type_comment', 1)->count() > 0)
                                         <a href="javascript:void(0)" class="load-more-cate-btn2 btn btn-sm btn-rounded btn-outline-gray btn-icon btn-icon-right f-w-500" id="loadMoreComments">
                                             Xem thêm bình luận
                                             <i class="fas fa-angle-down"></i>
                                         </a>
+                                        @endif
                                     </div>
                                 <!-- end load-more item-vote -->
                             </form>
@@ -984,7 +850,8 @@
                         </div>
                         <div class="single-start-top">
                             <div class="single-start-top-right">
-                                <p class="rating-average" id="avgRating">{{!empty($avgRating) ? $avgRating : -5 }}/5</p>
+                                <div class="title-avg-star block-none">Đánh Giá Trung Bình</div>
+                                <p class="rating-average" id="avgRating">{{!empty($avgRating) ? $avgRating : '-' }}/5</p>
                                 <div class="pro-item-start-rating">
                                     <i class="star-bold far fa-star"></i>
                                     <i class="star-bold far fa-star"></i>
@@ -992,8 +859,92 @@
                                     <i class="star-bold far fa-star"></i>
                                     <i class="star-bold far fa-star"></i>
                                 </div>
-                                <div class="single-start-top-total"><strong id="countRating">{{$countRating}}</strong> đánh giá &amp; nhận xét</div>
+                                <div class="single-start-top-total"><strong id="countRating">{{$countRating}}</strong> đánh giá </div>
                             </div>
+                            <!--ratinf detail -->
+                            <div class="rating_detail single-start-top-midel">
+                                @if(isset($star5) && $star5)
+                                <div class="rating_detail-item">
+                                    <button type="button" value="5">
+                                        <div class="box-star-title pro-item-start-rating">
+                                            <span>5</span>
+                                            <i class="star-bold fas fa-star"></i>
+                                        </div>
+                                        <div class="percent-rating rating_detail_item_js">
+                                            <div class="box-percent" @if($countRating != 0) style="width: {{(count($star5)/$countRating)*100}}%;" @endif>
+                                                <div class="main-percent"></div>
+                                            </div>
+                                        </div>
+                                        <div class="review-cout">{{$star5->count()}}</div>
+                                    </button>
+                                </div>
+                                @endif
+                                @if(isset($star4) && $star4)
+                                    <div class="rating_detail-item">
+                                        <button type="button" value="4">
+                                            <div class="box-star-title pro-item-start-rating">
+                                                <span>4</span>
+                                                <i class="star-bold fas fa-star"></i>
+                                            </div>
+                                            <div class="percent-rating rating_detail_item_js">
+                                                <div class="box-percent" @if($countRating != 0) style="width: {{(count($star4)/$countRating)*100}}%;" @endif>
+                                                    <div class="main-percent"></div>
+                                                </div>
+                                            </div>
+                                            <div class="review-cout">{{$star4->count()}}</div>
+                                        </button>
+                                    </div>
+                                @endif
+                                @if(isset($star3) && $star3)
+                                    <div class="rating_detail-item">
+                                        <button type="button" value="3">
+                                            <div class="box-star-title pro-item-start-rating">
+                                                <span>3</span>
+                                                <i class="star-bold fas fa-star"></i>
+                                            </div>
+                                            <div class="percent-rating rating_detail_item_js">
+                                                <div class="box-percent" @if($countRating != 0) style="width: {{(count($star3)/$countRating)*100}}%;" @endif>
+                                                    <div class="main-percent"></div>
+                                                </div>
+                                            </div>
+                                            <div class="review-cout">{{$star3->count()}}</div>
+                                        </button>
+                                    </div>
+                                @endif
+                                @if(isset($star2) && $star2)
+                                <div class="rating_detail-item">
+                                    <button type="button" value="2">
+                                        <div class="box-star-title pro-item-start-rating">
+                                            <span>2</span>
+                                            <i class="star-bold fas fa-star"></i>
+                                        </div>
+                                        <div class="percent-rating rating_detail_item_js">
+                                            <div class="box-percent" @if($countRating != 0) style="width: {{(count($star2)/$countRating)*100}}%;" @endif>
+                                                <div class="main-percent"></div>
+                                            </div>
+                                        </div>
+                                        <div class="review-cout">{{$star2->count()}}</div>
+                                    </button>
+                                </div>
+                                @endif
+                                @if(isset($star1) && $star1)
+                                <div class="rating_detail-item">
+                                    <button type="button" value="1">
+                                        <div class="box-star-title pro-item-start-rating">
+                                            <span>1</span>
+                                            <i class="star-bold fas fa-star"></i>
+                                        </div> 
+                                        <div class="percent-rating rating_detail_item_js">
+                                            <div class="box-percent" @if($countRating != 0) style="width: {{(count($star1)/$countRating)*100}}%;" @endif>
+                                                <div class="main-percent"></div>
+                                            </div>
+                                        </div>
+                                        <div class="review-cout">{{$star1->count()}}</div>
+                                    </button>
+                                </div>
+                                @endif
+                            </div>
+                            <!--ratinf detail -->
                             <div class="single-start-top-left">
                                 <p class="single-vote-sub-title">Bạn đánh giá sao sản phẩm này?</p>
                                 <a class="single-vote-btn btn-modal-create-comment" data-toggle="modal" data-target="#modal-danh-gia" data-type="2">Đánh giá ngay</a>
@@ -1007,13 +958,16 @@
                                     
                                 </div>
                                 <!--load-more item-vote -->
+
                                     <div class="container-btn-show-all" id="lcViewMoreRv">
                                         <input type="hidden" value="1" id="pageReview">
                                         <input type="hidden" value="" id="countLoadMoreRv">
+                                        @if(!empty($data->comment) && $data->comment()->where('type_comment', 2)->count() > 0)
                                         <a href="javascript:void(0)" class="load-more-cate-btn2 btn btn-sm btn-rounded btn-outline-gray btn-icon btn-icon-right f-w-500" id="loadMoreReviews">
                                             Xem thêm đánh giá
                                             <i class="fas fa-angle-down"></i>
                                         </a>
+                                        @endif
                                     </div>
                                 <!-- end load-more item-vote -->
                             </form>

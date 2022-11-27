@@ -101,11 +101,11 @@ class AdminHomeController extends Controller
 
 
         // lấy bài viết mới nhất
-        $listCategoryPost = $this->categoryPost->getALlCategoryChildrenAndSelf(21);
+        $listCategoryPost = $this->categoryPost->getALlCategoryChildrenAndSelf(70);
         //  dd($listCategoryPost);
         $postNews = $this->post->whereIn('category_id', $listCategoryPost)->orderBy('created_at')->limit(10)->get();
 
-        $listCategoryProduct = $this->categoryProduct->getALlCategoryChildrenAndSelf(76);
+        $listCategoryProduct = $this->categoryProduct->getALlCategoryChildrenAndSelf(185);
         // dd($listCategoryProduct);
         $productNews = $this->product->whereIn('category_id', $listCategoryProduct)->orderBy('created_at')->limit(10)->get();
 

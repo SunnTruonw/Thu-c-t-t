@@ -30,7 +30,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="cart-select cart-spon-md js-select">
+                                <div class="cart-select cart-spon-md js-select is_desktop">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col-auto"><span class="txt-gray-600 fs-p-16">Đơn vị bán:</span></div>
                                         <div class="col">
@@ -68,6 +68,16 @@
                                         'option'=>$cartItem['option_id'],
                                         ]) }}" class="remove-cart"><i class="fa fa-trash"></i> Xóa</a> 
                                         </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cart-select cart-spon-md js-select is_mobile">
+                            <div class="row align-items-center no-gutters">
+                                <div class="col-auto"><span class="txt-gray-600 fs-p-16">Đơn vị bán:</span></div>
+                                <div class="col">
+                                    <div class="u-flex flex-wrap align-items-center no-gutters">
+                                        <div class="col-auto"><p class="f-w-500 fs-p-16 txt-gray-600">{{ isset($cartItem['size'])?$cartItem['size']:'' }}</p></div>
                                     </div>
                                 </div>
                             </div>
@@ -233,10 +243,10 @@
                     </div>
 
                     <div class="col-12">
-                        <div class="u-flex">
-                            <div class="form-group row">
-                                <div class="col">
-                                    <select name="city_id" id="city" class="form-control w-200 @error('city_id') is-invalid  @enderror"  data-url="{{ route('ajax.address.districts') }}">
+                        <div class="row">
+                            <div class="form-group col-12 col-md-6">
+                                <div class="">
+                                    <select name="city_id" id="city" class="form-control @error('city_id') is-invalid  @enderror"  data-url="{{ route('ajax.address.districts') }}">
                                         <option value="">Chọn tỉnh/Thành phố</option>
                                         {!! $cities !!}
                                     </select>
@@ -248,9 +258,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col">
-                                    <select name="district_id" id="district" class="form-control w-200 @error('district_id') is-invalid @enderror"  data-url="{{ route('ajax.address.communes') }}" >
+                            <div class="form-group col-12 col-md-6">
+                                <div class="">
+                                    <select name="district_id" id="district" class="form-control @error('district_id') is-invalid @enderror"  data-url="{{ route('ajax.address.communes') }}" >
                                         <option value="">Chọn quận/huyện</option>
                                     </select>
                                     <div class="form-err txt-left" id="errorDistrict" style="display: none;">

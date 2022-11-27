@@ -6,9 +6,9 @@
 @section('abstract', $header['seo_home']->slug)
 
 @section('content')
-<style type="text/css">
+{{--<style type="text/css">
     .search_desktop{
-        display: none;
+        display: block;
     }
 
     @media(max-width: 991px){
@@ -16,7 +16,7 @@
             top: 50%;
         }
     }
-</style>
+</style>--}}
 <div class="lc__mask lc__mask_search_suggest"></div>
 <div class="content-wrapper">
     <div class="main">
@@ -46,7 +46,8 @@
                 @endif
             </div>
         </div>
-        <div class="bg_hoa section-search">
+        
+        {{--<div class="bg_hoa section-search">
             <div class="container">
 				<div class="row">
                     <div class="col-12 col-sm-12">
@@ -104,7 +105,6 @@
                 </div>
             </div>
         </div>
-        {{--
 		@if (isset($hotro)&&$hotro)
 		<div class="support">
 			<div class="container">
@@ -149,14 +149,14 @@
 		</div>
         @endif
         --}}
-		<div class="box_flash_sale">
+		{{--<div class="box_flash_sale">
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-sm-12">
                         <div class="col-inner">
                             <div class="section-title-container">
                                 <h2 class="section-title section-title-center">
-                                    FLASH SALE GIỜ VÀNG
+                                    COMBO HỖ TRỢ ĐIỀU TRỊ
                                 </h2>
                             </div>
                         </div>
@@ -191,24 +191,6 @@
                                                         </span>
                                                     </div>
                                                 @endif
-                                                <div class="pro-item-star">
-                                                    <span class="pro-item-start-rating">
-                                                        @php
-                                                            $avgRating = 0;
-                                                            $sumRating = array_sum(array_column($product->productStars->toArray(), 'star'));
-                                                            $countRating = count($product->productStars);
-                                                            if ($countRating != 0) {
-                                                                $avgRating = $sumRating / $countRating;
-                                                            }
-                                                        @endphp
-                                                        @for($i = 1; $i <= 5; $i++)
-                                                            @if($i <= $avgRating)
-                                                                <i class="star-bold far fa-star"></i>
-                                                            @else
-                                                            @endif
-                                                        @endfor
-                                                    </span>
-                                                </div>
                                             </div>
                                             <div class="content">
                                                 <h3><a href="{{ $link }}">{{ $tran->name }}</a></h3>
@@ -235,7 +217,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>--}}
 
         <div class="section_category_products">
 			<div class="ss04_category_product">
@@ -305,9 +287,9 @@
                         </div>
                     </div>
                     <div class="col-12 col-sm-12">
-						@if( isset($productsBest) && $productsBest->count()>0 )
+						@if( isset($productsHeart) && $productsHeart->count()>0 )
                             <div class="list_feedback1 autoplay6-tintuc category-slide-1">
-                                @foreach ($productsBest as $product)
+                                @foreach ($productsHeart as $product)
                                 @php
                                     $tran=$product->translationsLanguage()->first();
                                     $link= route('product.detail',['category'=>$product->category->slug, 'slug'=>$product->slug]);
@@ -334,7 +316,7 @@
                                                         </span>
                                                     </div>
                                                 @endif
-                                                <div class="pro-item-star">
+                                                {{-- <div class="pro-item-star">
                                                     <span class="pro-item-start-rating">
                                                         @php
                                                             $avgRating = 0;
@@ -351,7 +333,7 @@
                                                             @endif
                                                         @endfor
                                                     </span>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                             <div class="content">
                                                 <h3><a href="{{ $link }}">{{ $tran->name }}</a></h3>
@@ -422,7 +404,7 @@
                                                         </span>
                                                     </div>
                                                 @endif
-                                                <div class="pro-item-star">
+                                                {{-- <div class="pro-item-star">
                                                     <span class="pro-item-start-rating">
                                                         @php
                                                             $avgRating = 0;
@@ -439,7 +421,7 @@
                                                             @endif
                                                         @endfor
                                                     </span>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                             <div class="content">
                                                 <h3><a href="{{ $link }}">{{ $tran->name }}</a></h3>
@@ -562,76 +544,11 @@
                                                                             @endif
                                                                         </a>
                                                                         <div class="cart">
-                                                                            @if (isset($data->price) && $data->price > 0)  
                                                                             <span class="addCart add-to-cart" data-url="{{ route('cart.add',['id' => $product->id]) }}" data-start="{{ route('cart.add',['id' => $product->id,]) }}" data-info="{{ __('home.them_san_pham') }}" data-agree="{{ __('home.dong_y') }}" data-skip="{{ __('home.huy') }}" data-addfail="{{ __('home.them_san_pham_that_bat') }}">
                                                                                 <img class="lazy" src="{{ asset('images/icon_add_cart.png')}}" width="30" height="35"> Thêm vào giỏ
                                                                             </span>
-                                                                            @else
-                                                                                <span class="addCart" data-toggle="modal" data-target="#modal-add-cart_{{$product->id}}">
-                                                                                    <img class="lazy" src="{{ asset('images/icon_add_cart.png')}}" width="30" height="35"> Thêm vào giỏ
-                                                                                </span>
-                                                                            @endif
                                                                         </div>
-                                                                        {{-- model-add-cart --}}
-                                                                        <div class="modal fade modal-First" id="modal-add-cart_{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                                                <div class="modal-content"  image="">
-                                                                                    <div class="modal-body">
-                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                        </button>
-                                                                                        <div class="image-modal">
-                                                                                            <div class="info_product_modal">
-                                                                                                <div class="title">
-                                                                                                    {{ $product->name }}
-                                                                                                </div>
-                                                                                                <div class="image">
-                                                                                                    <img src="{{ asset($product->avatar_path) }}" alt="{{ $product->name }}">
-                                                                                                </div>
-                                                                                                <div class="list-attr">
-                                                                                                    <div class="attr-item">
-                                                                                                        <div class="price">
-                                                                                                            @if ($product->price)
-                                                                                                                @if ($product->price_after_sale)
-                                                                                                                    <span id="priceChange">Giá: {{ number_format($product->price_after_sale) }} <span class="donvi">đ</span></span>
-                                                                                                                @endif
-                                                                                                                @if ($product->sale>0)
-                                                                                                                    <span class="title_giacu">Giá cũ: </span>
-                                                                                                                    <span class="old-price">{{ number_format($product->price) }} {{ $unit  }}</span>
-                                                                        
-                                                                                                                    <div class="tiet_kiem">
-                                                                                                                        <div class="g2">(Tiết kiệm: <b>{{ number_format(
-                                                                                                                            ($product->price - $product->price_after_sale)) }}</b>)</div>
-                                                                                                                        <div class="tk">
-                                                                                                                            <b>-{{ $product->sale }}%</b>
-                                                                                                                        </div>
-                                                                                                                    </div>
-                                                                                                                @endif
-                                                                                                            @else
-                                                                                                            Liên hệ
-                                                                                                            @endif
-                                                                                                        </div>
-                                                                                                        <p>Giá bán lẻ đề xuất chưa bao gồm phí trước bạ và phí đăng ký (bao gồm VAT)</p>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                        
-                                                                                            <div class="newsletter-content">
-                                                                                                <h2>YÊU CẦU TƯ VẤN SẢN PHẨM</h2>
-                                                                                                <form action="{{ route('contact.storeAjax2') }}"  data-url="{{ route('contact.storeAjax2') }}" data-ajax="submit" data-target="alert" data-href="#modalAjax" data-content="#content" data-method="POST" method="POST" class="input-wrapper input-wrapper-inline input-wrapper-round">
-                                                                                                    @csrf
-                                                                                                    <input type="text" class="form-control" name="content" placeholder="Sản phẩm muốn xem *" value="{{ $product->name }}" required>
-                                                                                                    <input type="text" class="form-control" name="name" placeholder="Họ tên *">
-                                                                                                    <input type="text" class="form-control" name="phone" placeholder="Số điện thoại *" required>
-                                                                                                    <input type="text" class="form-control" name="email" placeholder="Email của bạn">
-                                                                                                    <button>Đăng ký ngay</button>
-                                                                                                </form>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="pro-item-star">
+                                                                        {{-- <div class="pro-item-star">
                                                                             <span class="pro-item-start-rating">
                                                                                 @php
                                                                                     $avgRating = 0;
@@ -648,7 +565,7 @@
                                                                                     @endif
                                                                                 @endfor
                                                                             </span>
-                                                                        </div>
+                                                                        </div> --}}
                                                                     </div>
                                                                     <div class="content">
                                                                         <h3><a href="{{ $link }}">{{ $tran->name }}</a></h3>

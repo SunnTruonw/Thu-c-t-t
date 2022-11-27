@@ -74,6 +74,7 @@ trait GetDataTrait
         $header['meVaBe'] = $categoryProduct->select('id', 'icon_path')->where('active', 1)->find(700);
         $header['hangNgoaiDia1'] = $categoryProduct->select('id', 'icon_path')->where('active', 1)->find(582);
         $header['hangNgoaiDia2'] = $categoryProduct->select('id', 'icon_path')->where('active', 1)->find(581);
+		$header['hangNgoaiDia3'] = $categoryProduct->select('id', 'icon_path')->where('active', 1)->find(807);
 
 
 

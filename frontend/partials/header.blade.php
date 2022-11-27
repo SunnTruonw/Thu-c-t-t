@@ -174,7 +174,31 @@
                 </ul>
             </li>
         @endif
-
+		@if(isset($header['hangNgoaiDia3']) && $header['hangNgoaiDia3'])
+            <li class="nav-item">
+                <a href="{{$header['hangNgoaiDia3']->slug_full}}">
+                    <span>{{$header['hangNgoaiDia3']->name}}</span>
+                    @isset($header['hangNgoaiDia3']->childs)
+                        @if (count($header['hangNgoaiDia3']->childs)>0)
+                            <i class="fa fa-angle-down mn-icon"></i>
+                        @endif
+                    @endisset
+                </a>
+                <ul class="nav-sub">
+                    @isset($header['hangNgoaiDia3']->childs)
+                        @if (count($header['hangNgoaiDia3']->childs)>0)
+                            @foreach($header['hangNgoaiDia3']->childs()->where('active', 1)->orderBy('order')->limit(10)->get() as $value)
+                            <li class="">
+                                <a href="{{$value->slug_full}}">
+                                    <span>{{$value->name}}</span>
+                                </a>
+                            </li>
+                            @endforeach
+                        @endif
+                    @endisset
+                </ul>
+            </li>
+        @endif
         @if(isset($header['menuNew']) && $header['menuNew'])
             @foreach($header['menuNew'] as $value)
                 <li class="nav-item">
@@ -246,7 +270,7 @@
                     <div class="search_desktop">
                         <form action="{{ makeLink('search') }}" autocomplete="off" method="GET">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="keyword" placeholder="Nhập tìm thuốc" />
+                                <input type="text" class="form-control" name="keyword" value="{{request('keyword')}}" placeholder="Nhập tìm thuốc" />
                                 <div class="input-group-append">
                                     <button class="input-group-text" type="submit"><i class="fas fa-search"></i></button>
                                 </div>
@@ -934,9 +958,18 @@
                                     @endisset
                                 </li>
                             @endif
-
-
-                            
+							@if(isset($header['hangNgoaiDia3']) && $header['hangNgoaiDia3'])
+                                <li class="nav-item">
+                                    <a href="{{$header['hangNgoaiDia3']->slug_full}}">
+                                        <span> {{$header['hangNgoaiDia3']->name}}</span>
+                                        @isset($header['hangNgoaiDia3']->childs)
+                                            @if (count($header['hangNgoaiDia3']->childs)>0)
+                                            <i class="fa fa-angle-down mn-icon"></i>
+                                            @endif
+                                        @endisset
+                                    </a>
+                                </li>
+                            @endif
 
                             @if(isset($header['menuNew']) && $header['menuNew'])
                                 @foreach($header['menuNew'] as $value)
@@ -978,7 +1011,7 @@
                         <div class="form-s-mobile">
                             <form action="{{ makeLink('search') }}" autocomplete="off" method="GET">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="keyword" placeholder="Từ khóa" />
+                                    <input type="text" class="form-control" name="keyword" value="{{request('keyword')}}" placeholder="Từ khóa" />
                                     <div class="input-group-append">
                                         <button class="input-group-text" type="submit"><i class="fas fa-search"></i></button>
                                     </div>
@@ -993,12 +1026,12 @@
             <div class="col-lg-12 search_mb1">
                 <div class="header-top-right">
                     <ul>
-                        <form action="{{ makeLink('search') }}" autocomplete="off" method="GET" class="cart_header">
+                        {{-- <form action="{{ makeLink('search') }}" autocomplete="off" method="GET" class="cart_header">
                             <li>
                                 <input type="text" name="keyword" class="header-top-search" placeholder="Tìm kiếm trên Min's Kitchen" />
                                 <div class="search_mobile" type="submit"><a>Tìm kiếm</a></div>
                             </li>
-                        </form>
+                        </form> --}}
                     </ul>
                 </div>
             </div>

@@ -100,7 +100,7 @@ class HomeController extends Controller
             ['hot', 1],
         ])->orderBy('order')->limit(12)->get();
 
-        $listIdPro = $this->productAttribute->where('attribute_id', 2)->pluck('product_id');
+        $listIdPro = $this->productAttribute->where('attribute_id', 58)->pluck('product_id');
 
         $products = $this->product->whereIn('id', $listIdPro)->limit(10)->get();
 

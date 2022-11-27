@@ -500,8 +500,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="control-label" for="">Sản phẩm hậu covid</label>
-
+                                            <label class="control-label" for="">Sản phẩm Combo</label>
                                             <div class="form-check-inline">
                                                 <label class="form-check-label">
                                                     <input type="checkbox" class="form-check-input @error('sp_km') is-invalid
@@ -513,9 +512,8 @@
                                             @enderror
                                         </div>
 
-                                        {{--
                                         <div class="form-group">
-                                            <label class="control-label" for="">Sản phẩm yêu thích</label>
+                                            <label class="control-label" for="">Sản phẩm tăng sức đề kháng</label>
 
                                             <div class="form-check-inline">
                                                 <label class="form-check-label">
@@ -528,6 +526,7 @@
                                             @enderror
                                         </div>
 
+                                        {{--
                                         <div class="form-group">
                                             <label class="control-label" for="">Bộ sưu tập</label>
 
@@ -577,16 +576,16 @@
                                         <div class="alert alert-light  mt-3 mb-1">
                                             <strong>Chọn thuộc tính</strong>
                                           </div>
-
                                          @foreach ($attributes as $key=> $attribute)
 
                                             <div class="form-group">
                                                 <label class="control-label" for="">{{ $attribute->name }}</label>
-                                                <select class="form-control"  name="attribute[]" >
+                                                <select class="form-control multiple-select-option" name="attribute[]" multiple>
                                                     <option value="0">--Chọn--</option>
                                                     @foreach ($attribute->childs()->orderby('order')->get() as $k=> $attr)
                                                         <option value="{{ $attr->id }}"
-                                                            @if (old('attribute'))
+                                                            @if(in_array($attr->id,$data->attributes->pluck('id')->toArray())) selected @endif
+                                                            {{-- @if (old('attribute'))
                                                                 @if ($attr->id==old('attribute')[$key])
                                                                     selected
                                                                 @else
@@ -594,7 +593,7 @@
                                                                 @endif
                                                             @else
                                                             {{ $data->attributes()->get()->pluck('id')->contains($attr->id)?'selected':"" }}
-                                                            @endif
+                                                            @endif --}}
                                                         >
                                                             {{ $attr->name }}
                                                         </option>
@@ -915,5 +914,7 @@
             }
         })
     });
+
+    
 </script>
 @endsection

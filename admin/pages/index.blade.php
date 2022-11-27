@@ -130,7 +130,7 @@ ul{
 							 </div>
 						  </div>
 					 </div>
-					<div class="col-md-3 col-sm-6 col-12">
+					<div class="col-md-4 col-sm-6 col-12">
 					   <div class="info-box">
 						  <span class="info-box-icon bg-warning"><i class="fas fa-newspaper"></i></span>
 						  <div class="info-box-content">
@@ -139,7 +139,7 @@ ul{
 						  </div>
 					   </div>
 					</div>
-					<div class="col-md-3 col-sm-6 col-12">
+					<div class="col-md-4 col-sm-6 col-12">
 					   <div class="info-box">
 						  <span class="info-box-icon bg-danger"><i class="far fa-newspaper"></i></span>
 						  <div class="info-box-content">
@@ -148,7 +148,7 @@ ul{
 						  </div>
 					   </div>
 					</div>
-					<div class="col-md-3 col-sm-6 col-12">
+					<div class="col-md-4 col-sm-6 col-12">
 					   <div class="info-box">
 						  <span class="info-box-icon bg-info"><i class="fas fa-cart-plus"></i></span>
 						  <div class="info-box-content">
@@ -157,7 +157,7 @@ ul{
 						  </div>
 					   </div>
 					</div>
-					<div class="col-md-3 col-sm-6 col-12">
+					{{--<div class="col-md-3 col-sm-6 col-12">
 					   <div class="info-box">
 						  <span class="info-box-icon bg-success"><i class="fas fa-users"></i></span>
 						  <div class="info-box-content">
@@ -165,7 +165,7 @@ ul{
 							 <span class="info-box-number">1</span>
 						  </div>
 					   </div>
-					</div>
+					</div>--}}
 				 </div>
                <!--<div class="card card-info">
                   <div class="card-header">
@@ -233,7 +233,7 @@ ul{
             <div class="col-md-6">
                 <div class="card card-outline card-primary">
                     <div class="card-header">
-                       <h3 class="card-title">10 Dịch vụ thêm gần đây</h3>
+                       <h3 class="card-title">10 Sản phẩm thêm gần đây</h3>
                     </div>
                     <div class="card-body table-responsive p-0" style="height: 345px;">
                         <ul class="list-news-home list-group">

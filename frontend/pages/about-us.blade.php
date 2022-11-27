@@ -23,7 +23,6 @@
             ])
 
             <div class="blog-about-us">
-
                 <div class="wrap-about-us">
                     <div class="container">
                         <div class="box_content" id="wrapSizeChange">
@@ -33,7 +32,7 @@
                                         <div class="content_mucluc">
                                             <div class="title_mucluc">
                                                 <i class="fas fa-list"></i>
-                                                <span>Giới thiệu về Kingphar</span>
+                                                <span>Giới thiệu Thuốc Tốt 365</span>
                                             </div>
                                             <div class="box-link-paragraph">
                                                 <ul>

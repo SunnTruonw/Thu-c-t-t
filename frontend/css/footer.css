@@ -1,5 +1,5 @@
 .hethongnhathuoc {
-    background: #39673d;
+    background: #22924e;
     padding: 15px 0;
     color: #fff;
 }
@@ -34,7 +34,7 @@
 }
 
 .box_right_footer {
-    padding-left: 25px;
+    padding-right: 14px;
 }
 
 .footer {
@@ -127,7 +127,7 @@
     padding: 3px 5px;
     border-radius: 30px;
     border: solid 1px #fff;
-    background: #ccc;
+    background: #22924e;
 }
 
 .content-address-footer {
@@ -145,7 +145,7 @@
     border-radius: 10px;
     outline: 0;
     box-shadow: unset;
-    background-color: #ccc;
+    background-color: #22924e;
     color: #fff;
 }
 
@@ -172,6 +172,7 @@
 
 .box_form_dky button i {
     margin-left: 0px;
+    color: #22924e;
 }
 
 .box_form_dky p {
@@ -473,7 +474,7 @@
     width: 32px;
     text-align: center;
     float: left;
-    border: 1px solid #333;
+    border: 1px solid #22924e;
     border-radius: 100%;
     background-color: none;
     color: #416290;
@@ -488,7 +489,7 @@
 .pt_social li a i {
     font-size: 15px;
     line-height: 32px;
-    color: #333;
+    color: #22924e;
 }
 
 .col-item-footer {
@@ -1117,10 +1118,35 @@
 .bottom-contact {
     display: none;
 }
-
+.footer-main .box_link_foot{
+    margin-bottom: 40px;
+    width: 100%;
+}
+.footer-main .box_link_foot .title {
+    color: #333;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    padding-bottom: 3px;
+    position: relative;
+    font-size: 14px;
+    font-weight: 600;
+}
+.footer-main .box_link_foot .title:before {
+    content: "";
+    width: 70px;
+    height: 2px;
+    background-color: #333;
+    position: absolute;
+    left: 0;
+    top: 100%;
+}
 .bottom-contact li {
     margin-bottom: 0.6em;
 }
+.footer-main .box_link_foot ul{
+}
+.footer-main .box_link_foot li{line-height: normal;margin-bottom: 4px;}
+.footer-main .box_link_foot li a{color: #333;font-style: normal;font-size: 14px;line-height: 28px;font-weight: 400;}
 
 
 /* HHH */
@@ -1351,6 +1377,9 @@
         transform: rotate(0) scale(1) skew(1deg);
     }
 }
+.show_mb {
+    display: none;
+}
 
 @media (max-width: 1199px) {
     .no-gutters {
@@ -1399,10 +1428,11 @@
         text-align: center;
     }
     .col-item-footer {
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
     .box_right_footer {
         padding-left: 0;
+        padding-right: 0;
     }
     .title_hethong {
         margin-bottom: 10px;
@@ -1467,9 +1497,11 @@
 }
 
 @media (max-width: 767px) {
-
+	.col-item-footer1 {
+		display: none;
+	}
 	.title_hethong p {
-	    font-size: 19px;
+	    font-size: 17px;
 	}
     .section-group-footer .body-list-item:last-child {
         margin-bottom: 0;
@@ -1505,6 +1537,9 @@
 }
 
 @media (max-width:550px) {
+	.footer-main .box_link_foot .title:before {
+		display: block;
+	}
     .dangky_cuoitrang .box_info .giam {
         font-size: 13px;
     }
@@ -1529,7 +1564,7 @@
     .box_form_dky input.form-control {}
     .box_form_dky button {}
     .pt_contact_vertical {
-        display: none;
+        display: block;
     }
     .fs-p-xxs-13 {
         font-size: 13px !important;
@@ -1577,9 +1612,40 @@
         font-size: 20px;
     }
     .footer-main {
-        padding: 40px 0 20px;
+        padding: 20px 0 20px;
     }
     .contact_fixed {
         display: flex;
     }
+	.show_mb {
+		display: block;
+	}
+	.footer-main .box_link_foot .title {
+		margin-bottom: 0;
+		font-size: 14px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.footer-main .box_link_foot{
+        margin-bottom: 0;
+        border-bottom: 1px solid #D8D8D8;
+        padding: 5px 0px;
+    }
+	.footer-main .box_link_foot .show_mb{
+        /* border: 1px solid #292D32; */
+        transform: rotate(90deg);
+        width: 20px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        padding-top: 0;
+    }
+	.footer-main .box_link_foot ul {
+		display: none;
+		margin-top: 8px;
+	}
+	.content-address-footer {
+		line-height: 27px;
+	}
 }

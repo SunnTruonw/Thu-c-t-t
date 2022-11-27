@@ -6,6 +6,7 @@ $(document).ready(function() {
             $(this).prev("a").append("<i class='fa fa-angle-right pt_icon_right'></i>");
         }
     });
+
     // $(".menu-desktop .nav-item .nav-sub").each(function() {
     //     if ($(this).find(".nav-sub-item").length) {
     //         $(this).prev("a").append("<i class='fa fa-angle-down' aria-hidden='true'></i>");

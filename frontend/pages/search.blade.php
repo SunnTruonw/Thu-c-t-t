@@ -17,111 +17,79 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-12 block-content-right">
-                            @isset($dataProduct)
-                                @if ($dataProduct)
-                                    @if ($dataProduct->count())
-                                    {{--<h3 class="title-template">{{ __('search.ket_qua_tim_kiem') }}</h3>--}}
-                                    <div class="wrap-list-product">
-                                        <div class="list-product-card">
+                            @if (isset($dataProduct)&&$dataProduct)
+                            <div class="ss05_product">
+                                <div class="container">
+                                    <div class="row">
+                                    <div class="col-sm-12 col-12 padding_none">
+                                        <div class="list-product list_feedback1">
                                             <div class="row">
-                                                @foreach ($dataProduct as $product)
-                                                @php
-                                                    $tran=$product->translationsLanguage()->first();
-                                                    $link= route('product.detail',['category'=>$product->category->slug, 'slug'=>$product->slug]);
-                                                @endphp
-                                                <div class="col-product-item col-lg-3 col-md-4 col-sm-6 col-6">
-                                                    <div class="product-item">
-                                                        <div class="box">
-                                                            <div class="image">
-                                                                <a href="{{ $link }}">
-                                                                    <img src="{{ asset($product->avatar_path) }}" alt="{{ $tran->name }}">
-                                                                    @if ($product->sale)
-                                                                    <span class="sale"> {{  $product->sale." %"}}</span>
-                                                                    @endif
-
-                                                                    @if($product->baohanh)
-                                                                        <div class="km">
-                                                                            {{ $product->baohanh }}
+                                                <div class="col-sm-12 col-12">
+                                                    <div class="list_nowrap">
+                                                        <div class="row">
+                                                            @foreach ($dataProduct as $product)
+                                                                @php
+                                                                    $tran=$product->translationsLanguage()->first();
+                                                                    $link= route('product.detail',['category'=>$product->category->slug, 'slug'=>$product->slug]);
+                                                                @endphp
+                                                                <div class="col-product-item box_sp_home col-sm-6 col-6">
+                                                                    <div class="product-item">
+                                                                        <div class="box">
+                                                                            <div class="image">
+                                                                                <a href="{{ $link }}">
+                                                                                    <img src="{{ $product->avatar_path != null ?  asset($product->avatar_path) : asset('frontend/images/no-images.jpg') }}" alt="{{ $tran->name }}">
+                                                                                    @if ($product->old_price && $product->price)
+                                                                                        <span class="sale">  {{ceil(100 -($product->price)*100/($product->old_price))."%"}} </span>
+                                                                                    @endif
+                                                                                    @if($product->baohanh)
+                                                                                        <div class="km">
+                                                                                            {{ $product->baohanh }}
+                                                                                        </div>
+                                                                                    @endif
+                                                                                </a>
+                                                                                <div class="cart">
+                                                                                    <span class="addCart add-to-cart" data-url="{{ route('cart.add',['id' => $product->id]) }}" data-start="{{ route('cart.add',['id' => $product->id,]) }}" data-info="{{ __('home.them_san_pham') }}" data-agree="{{ __('home.dong_y') }}" data-skip="{{ __('home.huy') }}" data-addfail="{{ __('home.them_san_pham_that_bat') }}">
+                                                                                        <img class="lazy" src="{{ asset('images/icon_add_cart.png')}}" width="30" height="35"> Thêm vào giỏ
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="content">
+                                                                                <h3><a href="{{ $link }}">{{ $tran->name }}</a></h3>
+                                                                                <div class="box-price">
+                                                                                    @if ($product->price)
+                                                                                    <span class="new-price">{{ number_format($product->price) }}đ</span>
+                                                                                        @if ($product->size)
+                                                                                        {{ '/ '.$product->size }}
+                                                                                        @endif
+                                                                                    @else
+                                                                                    <span class="new-price">Liên hệ</span>
+                                                                                    @endif
+                                                                                    @if ($product->old_price>0)
+                                                                                    <span class="old-price">{{ number_format($product->old_price) }}đ</span>
+                                                                                    @endif
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                    @endif
-                                                                </a>
-                                                            </div>
-                                                            <div class="content">
-                                                                <h3>
-                                                                    <a href="{{ $link }}">
-                                                                       {{ $tran->name }}
-                                                                    </a>
-                                                                </h3>
-                                                                <div class="box-price">
-                                                                    <span class="new-price">{{ $product->price_after_sale?number_format($product->price_after_sale)." ".$unit: __('home.lien_he') }}</span>
-                                                                    @if ($product->sale>0)
-                                                                        <span class="old-price">{{ number_format($product->price) }} {{ $unit  }}</span>
-                                                                    @endif
+                                                                    </div>
                                                                 </div>
-                                                            </div>
+                                                            @endforeach
                                                         </div>
                                                     </div>
                                                 </div>
-                                                @endforeach
+                                                <div class="col-12">
+                                                    @if (count($dataProduct))
+                                                    {{$dataProduct->appends(request()->all())->onEachSide(1)->links()}}
+                                                    @endif
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            @if (count($dataProduct))
-                                            {{$dataProduct->appends(request()->input())->links()}}
-                                            @endif
                                         </div>
                                     </div>
-                                    @endif
-                                @endif
-                            @endisset
+                                    </div>
+                                </div>
+                            </div>	
+                            @endif
 
                         </div>
-						{{-- <div class="col-lg-3 col-sm-12 content-left">
-							@isset($sidebar)
-
-                            @include('frontend.components.sidebar',[
-                                "categoryProduct"=>$sidebar['categoryProduct'],
-                                "categoryPost"=>$sidebar['categoryPost'],
-                                "categoryProductActive"=>$categoryProductActive  ?? null,
-                                "postsHot"=>$sidebar['postsHot'],
-                                "support_online"=>$sidebar['support_online'],
-                                'fill'=>true,
-                                'product'=>true,
-                                'post'=>false,
-                            ])
-                        @endisset
-						</div> --}}
-                        {{-- <div class="col-lg-12 col-sm-12">
-                            @isset($dataPost)
-                                @if ($dataPost)
-                                    @if ($dataPost->count())
-                                        <h3 class="title-template-news">{{ __('search.ket_qua_tim_kiem_tin_tuc') }}</h3>
-                                        <div class="list-news">
-                                            <div class="row">
-                                                @foreach ($dataPost as $post)
-                                                <div class="fo-03-news col-lg-4 col-md-6 col-sm-6">
-                                                    <div class="box">
-                                                        <div class="image">
-                                                            <a href="{{ makeLink("post",$post->id,$post->slug) }}"><img src="{{ asset($post->avatar_path) }}" alt="{{ $post->name }}"></a>
-                                                        </div>
-                                                        <h3><a href="{{ makeLink("post",$post->id,$post->slug) }}">{{ $post->name }}</a></h3>
-                                                        <div class="date">{{ date_format($post->updated_at,"d/m/Y")}} - Admin</div>
-                                                        <div class="desc">
-                                                            {!! $post->description  !!}
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                        @if (count($dataPost))
-                                        {{$dataPost->links()}}
-                                        @endif
-                                    @endif
-                                @endif
-                            @endisset
-                        </div> --}}
                     </div>
                 </div>
             </div>

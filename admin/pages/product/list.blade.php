@@ -67,7 +67,7 @@
                                                 <select id="" name="fill_action" class="form-control">
                                                     <option value="">-- Lọc --</option>
                                                     <option value="hot" {{ $fill_action=='hot'? 'selected':'' }}>Sản phẩm bán chạy</option>
-                                                    <option value="sp_km" {{ $fill_action=='sp_km'? 'selected':'' }}>Sản phẩm hậu covid</option>
+                                                    <option value="sp_km" {{ $fill_action=='sp_km'? 'selected':'' }}>Sản phẩm khuyến mại</option>
                                                     <option value="active" {{ $fill_action=='active'? 'selected':'' }}>Sản phẩm hiển thị</option>
                                                     <option value="no_active" {{ $fill_action=='no_active'? 'selected':'' }}>Sản phẩm bị ẩn</option>
                                                 </select>
@@ -107,8 +107,8 @@
                                     <th class="white-space-nowrap">Hình ảnh</th>
                                     <th class="white-space-nowrap">Active</th>
                                     <th class="white-space-nowrap">Bán chạy</th>
-                                    <th class="white-space-nowrap">Hậu covid</th>
-                                    {{-- <th class="white-space-nowrap">Yêu thích</th> --}}
+                                    <th class="white-space-nowrap">Combo</th>
+                                    <th class="white-space-nowrap">Tăn đề kháng</th>
                                     {{-- <th class="white-space-nowrap">Bộ sưu tập</th> --}}
                                     <th class="white-space-nowrap">Danh mục</th>
                                     <th>Action</th>
@@ -135,9 +135,9 @@
                                      <td class="wrap-load-hot" data-url="{{ route('admin.product.load.sp_km',['id'=>$productItem->id]) }}">
                                         @include('admin.components.load-change-sp_km',['data'=>$productItem,'type'=>'sản phẩm'])
                                      </td>
-                                     {{-- <td class="wrap-load-hot" data-url="{{ route('admin.product.load.sp_ngoc',['id'=>$productItem->id]) }}">
+                                     <td class="wrap-load-hot" data-url="{{ route('admin.product.load.sp_ngoc',['id'=>$productItem->id]) }}">
                                         @include('admin.components.load-change-sp_ngoc',['data'=>$productItem,'type'=>'sản phẩm'])
-                                     </td>
+                                     </td>{{-- 
                                      <td class="wrap-load-hot" data-url="{{ route('admin.product.load.bo_suu_tap',['id'=>$productItem->id]) }}">
                                         @include('admin.components.load-change-bo_suu_tap',['data'=>$productItem,'type'=>'sản phẩm'])
                                      </td> --}}

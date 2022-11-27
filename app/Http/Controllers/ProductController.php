@@ -121,12 +121,6 @@ class ProductController extends Controller
         ])->first();
         if ($translation) {
             $data = $translation->product;
-            // $view = $data->view;
-
-            // $data->update([
-            //     'view' => $view + 1,
-            // ]);
-
 
             if (checkRouteLanguage($slug, $data)) {
                 return checkRouteLanguage($slug, $data);
@@ -154,14 +148,6 @@ class ProductController extends Controller
                 ['active', 1],
             ])->orderBy('order')->orderByDesc('created_at')->limit($this->sliderLimit)->get();
 
-            // $featuredelly = $this->setting->where('active', 1)->find(337);
-            // $huongDanMuaHang = $this->setting->where('active', 1)->find(333);
-            // $quyTrinh = $this->setting->where('active', 1)->find(334);
-            // $huongDanChonSize = $this->setting->where('active', 1)->find(335);
-
-            // $saleSideBar = $this->product->where('active', 1)->where('sale', '>', 0)->orWhere('old_price', '!=', 0)->limit(6)->get();
-            // $daXemSideBar = $this->product->where('active', 1)->orderBy('view', 'DESC')->limit(6)->get();
-
             $camket = $this->setting->where('active', 1)->find(406);
 
 
@@ -173,30 +159,27 @@ class ProductController extends Controller
                 $avgRating = $sumRating / $countRating;
             }
 
-            // $star5 = $data->stars()->where([
-            //     ['active', 1],
-            //     ['star', 5],
-            // ])->get();
+            $dataStart = $data->comments()->where('type_comment', 2);
 
-            // $star4 = $data->stars()->where([
-            //     ['active', 1],
-            //     ['star', 4],
-            // ])->get();
+            $star5 = $dataStart->where([
+                ['stars', 5]
+            ])->get();
 
-            // $star3 = $data->stars()->where([
-            //     ['active', 1],
-            //     ['star', 3],
-            // ])->get();
+            $star4 = $dataStart->where([
+                ['stars', 4]
+            ])->get();
 
-            // $star2 = $data->stars()->where([
-            //     ['active', 1],
-            //     ['star', 2],
-            // ])->get();
+            $star3 = $dataStart->where([
+                ['stars', 3]
+            ])->get();
 
-            // $star1 = $data->stars()->where([
-            //     ['active', 1],
-            //     ['star', 1],
-            // ])->get();
+            $star2 = $dataStart->where([
+                ['stars', 2]
+            ])->get();
+
+            $star1 = $dataStart->where([
+                ['stars', 1]
+            ])->get();
 
             $accordion = $this->setting->where('active', 1)->find(389);
 
@@ -205,11 +188,11 @@ class ProductController extends Controller
             return view('frontend.pages.product-detail', [
                 'accordion' => $accordion,
                 'data' => $data,
-                // 'star5' => $star5,
-                // 'star4' => $star4,
-                // 'star3' => $star3,
-                // 'star2' => $star2,
-                // 'star1' => $star1,
+                'star5' => $star5,
+                'star4' => $star4,
+                'star3' => $star3,
+                'star2' => $star2,
+                'star1' => $star1,
                 'avgRating' => ceil($avgRating),
                 'countRating' => $countRating,
                 'camket' => $camket,

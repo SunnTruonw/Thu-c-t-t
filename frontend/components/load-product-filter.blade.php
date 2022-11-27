@@ -30,75 +30,11 @@
                                         @endif
                                     </a>
                                     <div class="cart">
-                                        @if (isset($data->price) && $data->price > 0)  
                                         <span class="addCart add-to-cart" data-url="{{ route('cart.add',['id' => $product->id]) }}" data-start="{{ route('cart.add',['id' => $product->id,]) }}" data-info="{{ __('home.them_san_pham') }}" data-agree="{{ __('home.dong_y') }}" data-skip="{{ __('home.huy') }}" data-addfail="{{ __('home.them_san_pham_that_bat') }}">
                                             <img class="lazy" src="{{ asset('images/icon_add_cart.png')}}" width="30" height="35"> Thêm vào giỏ
                                         </span>
-                                        @else
-                                            <span class="addCart" data-toggle="modal" data-target="#modal-add-cart_{{$product->id}}">
-                                                <img class="lazy" src="{{ asset('images/icon_add_cart.png')}}" width="30" height="35"> Thêm vào giỏ
-                                            </span>
-                                        @endif
                                     </div>
-                                    <div class="modal fade modal-First" id="modal-add-cart_{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content"  image="">
-                                                <div class="modal-body">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    </button>
-                                                    <div class="image-modal">
-                                                        <div class="info_product_modal">
-                                                            <div class="title">
-                                                                {{ $product->name }}
-                                                            </div>
-                                                            <div class="image">
-                                                                <img src="{{ asset($product->avatar_path) }}" alt="{{ $product->name }}">
-                                                            </div>
-                                                            <div class="list-attr">
-                                                                <div class="attr-item">
-                                                                    <div class="price">
-                                                                        @if ($product->price)
-                                                                            @if ($product->price_after_sale)
-                                                                                <span id="priceChange">Giá: {{ number_format($product->price_after_sale) }} <span class="donvi">đ</span></span>
-                                                                            @endif
-                                                                            @if ($product->sale>0)
-                                                                                <span class="title_giacu">Giá cũ: </span>
-                                                                                <span class="old-price">{{ number_format($product->price) }} {{ $unit  }}</span>
-                                    
-                                                                                <div class="tiet_kiem">
-                                                                                    <div class="g2">(Tiết kiệm: <b>{{ number_format(
-                                                                                        ($product->price - $product->price_after_sale)) }}</b>)</div>
-                                                                                    <div class="tk">
-                                                                                        <b>-{{ $product->sale }}%</b>
-                                                                                    </div>
-                                                                                </div>
-                                                                            @endif
-                                                                        @else
-                                                                        Liên hệ
-                                                                        @endif
-                                                                    </div>
-                                                                    <p>Giá bán lẻ đề xuất chưa bao gồm phí trước bạ và phí đăng ký (bao gồm VAT)</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                    
-                                                        <div class="newsletter-content">
-                                                            <h2>YÊU CẦU TƯ VẤN SẢN PHẨM</h2>
-                                                            <form action="{{ route('contact.storeAjax2') }}"  data-url="{{ route('contact.storeAjax2') }}" data-ajax="submit" data-target="alert" data-href="#modalAjax" data-content="#content" data-method="POST" method="POST" class="input-wrapper input-wrapper-inline input-wrapper-round">
-                                                                @csrf
-                                                                <input type="text" class="form-control" name="content" placeholder="Sản phẩm muốn xem *" value="{{ $product->name }}" required>
-                                                                <input type="text" class="form-control" name="name" placeholder="Họ tên *">
-                                                                <input type="text" class="form-control" name="phone" placeholder="Số điện thoại *" required>
-                                                                <input type="text" class="form-control" name="email" placeholder="Email của bạn">
-                                                                <button>Đăng ký ngay</button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="pro-item-star">
+                                    {{-- <div class="pro-item-star">
                                         <span class="pro-item-start-rating">
                                             @php
                                                 $avgRating = 0;
@@ -115,7 +51,7 @@
                                                 @endif
                                             @endfor
                                         </span>
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div class="content">
                                     <h3><a href="{{ $link }}">{{ $tran->name }}</a></h3>

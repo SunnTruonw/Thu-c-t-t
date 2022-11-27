@@ -34,17 +34,17 @@ class Cart {
                     setTimeout(function () {
                         $('#textSuccessHeaderDes').hide();
                         $('#cartPopupDes').removeClass('activePopup');
-                    }, 10000);
+                    }, 20000);
 
-                    swalOption.title = info;
-                    swalOption.icon = 'success';
-                    Swal.fire(swalOption).then((result) => {
-                        if (result.isConfirmed) {
-                            //let hostname = window.location.hostname;
-                            window.location.href = "/cart/list";
+                    // swalOption.title = info;
+                    // swalOption.icon = 'success';
+                    // Swal.fire(swalOption).then((result) => {
+                    //     if (result.isConfirmed) {
+                    //         //let hostname = window.location.hostname;
+                    //         window.location.href = "/cart/list";
 
-                        }
-                    })
+                    //     }
+                    // })
 
                 } else {
                     console.log('data error');

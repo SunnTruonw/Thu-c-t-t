@@ -55,15 +55,24 @@ Route::group(['prefix' => 'cart'], function () {
     Route::get('order/error', 'ShoppingCartController@getOrderError')->name('cart.order.error');
 });
 // compare product
-Route::group(['prefix' => 'compare'], function () {
-    Route::get('/', 'CompareController@list')->name('compare.list');
-    Route::get('add/{id}', 'CompareController@add')->name('compare.add');
-    Route::get('add-redirect/{id}', 'CompareController@addAndRedirect')->name('compare.addAndRedirect');
-    Route::get('remove/{id}', 'CompareController@remove')->name('compare.remove');
-    Route::get('update/{id}', 'CompareController@update')->name('compare.update');
-    Route::get('clear', 'CompareController@clear')->name('compare.clear');
+Route::group(['prefix' => 'drugstore'], function () {
+    Route::get('/', 'DrugStoreController@index')->name('drugstore.list');
+    Route::get('/create', "DrugStoreController@create")->name("drugstore.create");
+
+
+    // Route::get('add/{id}', 'CompareController@add')->name('compare.add');
+    // Route::get('add-redirect/{id}', 'CompareController@addAndRedirect')->name('compare.addAndRedirect');
+    // Route::get('remove/{id}', 'CompareController@remove')->name('compare.remove');
+    // Route::get('update/{id}', 'CompareController@update')->name('compare.update');
+    // Route::get('clear', 'CompareController@clear')->name('compare.clear');
 });
 
+
+// //drugstore
+// Route::group(['prefix' => 'drugstore'], function () {
+//     Route::get('/index', "DrugStoreController@index")->name("drugstore.index");
+//     Route::get('/create', "DrugStoreController@create")->name("drugstore.create");
+// });
 
 Route::group(['prefix' => 'san-pham'], function () {
     Route::get('/', 'ProductController@index')->name('product.index');
@@ -175,6 +184,8 @@ Route::get('/filter/comment', 'ProductController@filterComment')->name('product.
 
 //like
 Route::post('/like/comment', 'ProductController@like')->name('product.like.comment');
+
+
 
 
 Route::get('{category}/{slug}', 'ProductController@detail')->name('product.detail');

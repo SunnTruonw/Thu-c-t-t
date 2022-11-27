@@ -15,7 +15,7 @@
 				</p>
 			</div>
 			<div class="modal-footer">
-				<button data-dismiss="modal" aria-label="Close" class="button_plus txt-primary">
+				<button data-dismiss="modal" aria-label="Close" class="button_plus txt-red">
 					TIẾP TỤC
 				</button>
 			</div>
